@@ -14,17 +14,24 @@ edag  <- read_excel("ply44data.xls")
 ## Select columns
 eda  <- edag %>% select(ExperimentName, Subject, `Procedure[Block]`,
                          triadlist.Cycle, Trial, triadidmain, respcue.RESP,
-                         respcue.RT)
+                         respcue.RT, top, mid, bot)
 
 ## Condition names must be numeric for model fit code
 eda$ExperimentName <- recode(eda$ExperimentName, "Triad_HTP_colour" = 1,
                              "Triad_LTP_colour" = 2)
 
 ## Clean up column names
-colnames(eda) <- c('cond','subj','phase','blk','trial','stim','resp','rt')
+colnames(eda) <- c('cond','subj','phase','blk','trial','triad','resp','rt',
+                   )
 
 ## Remove the trials which are just instructions to rest between blocks
 eda  <- eda %>% filter(phase == "blockproc") %>% select(-phase)
+
+## Tidy stim names
+eda  <- eda %>%
+    mutate(left1 = as.integer(str_extract(left1, "(\\d)"))) %>%
+    mutate(mid2 = as.integer(str_extract(mid2, "(\\d)"))) %>%
+    mutate(right3 = as.integer(str_extract(right3, "(\\d)"))) 
 
 ## Save out tidied CSV
 write_csv(eda, "ply44data.csv")
@@ -35,17 +42,25 @@ edag  <- read_excel("ply62data.xls")
 ## Select columns
 eda.ply62  <- edag %>% select(ExperimentName, Subject, `Procedure[Block]`,
                          triadlist.Cycle, Trial, triadidmain, respcue.RESP,
-                         respcue.RT)
+                         respcue.RT, top, mid, bot)
 
 ## Condition names must be numeric for model fit code
 eda.ply62$ExperimentName <- recode(eda.ply62$ExperimentName, "Triad_HTP_colour" = 1,
                                    "Triad_LTP_colour" = 2)
 
 ## Clean up column names
-colnames(eda.ply62) <- c('cond','subj','phase','blk','trial','stim','resp','rt')
+colnames(eda.ply62) <- c('cond','subj','phase','blk','trial','triad','resp','rt',
+                         'left1', 'mid2', 'right3')
 
 ## Remove the trials which are just instructions to rest between blocks
 eda.ply62  <- eda.ply62 %>% filter(phase == "blockproc") %>% select(-phase)
+
+## Tidy stim names
+eda.ply62  <- eda.ply62 %>%
+    mutate(left1 = as.integer(str_extract(left1, "(\\d)"))) %>%
+    mutate(mid2 = as.integer(str_extract(mid2, "(\\d)"))) %>%
+    mutate(right3 = as.integer(str_extract(right3, "(\\d)"))) 
+
 
 ## Save out tidied CSV
 write_csv(eda, "ply62data.csv")
