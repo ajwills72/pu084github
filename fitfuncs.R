@@ -1,3 +1,37 @@
+## Euclidean distance function
+edist  <- function(coords, sat, bri) {
+    sqrt(sat * (coords[1,1] - coords[2,1])^2 + bri * (coords[1,2] - coords[2,2])^2)
+}
+
+## Return which stimulus is odd one out, on Euclidean distance
+ooo  <- function(coords, sat, bri) {
+    coords  <-  t(array(as.numeric(coords), dim=c(2,3)))
+    dists  <- c(0,0,0)
+    dists[1]  <- edist(coords[c(2,3),], sat, bri)
+    dists[2]  <- edist(coords[c(1,3),], sat, bri)
+    dists[3]  <- edist(coords[c(1,2),], sat, bri)
+    return(which.min(dists))
+    }
+
+## Identity detection
+
+idist  <- function(coords) {
+    idist  <- 1
+    if(coords[1,1] == coords[2,1]) idist  <- 0
+    if(coords[1,2] == coords[2,2]) idist  <- 0
+    return(idist)
+    }
+
+## Return which stimulus is odd one out, on identity
+ooo.id  <- function(coords) {
+    coords  <-  t(array(as.numeric(coords), dim=c(2,3)))
+    dists  <- c(0,0,0)
+    dists[1]  <- idist(coords[c(2,3),])
+    dists[2]  <- idist(coords[c(1,3),])
+    dists[3]  <- idist(coords[c(1,2),])
+    return(which.min(dists))
+    }
+
 ## Define functions for each response model
 bright.mdl <- function(x) if (cde[x[1],'bright'] == x[2]) 1 else 0
 chroma.mdl <- function(x) if (cde[x[1],'chroma'] == x[2]) 1 else 0
@@ -15,7 +49,7 @@ ppfits <- function(ppno,blkno) {
   out[1] = as.numeric(dta[1,'subj'])
   out[2] = as.numeric(dta[1,'cond'])
   out[3] = as.numeric(blkno)
-  x <- cbind(dta$stim,dta$resp)
+  x <- cbind(dta$triad,dta$resp)
   colnames(x) <- c('stim','resp')
   out[4] = sum(apply(x,1,bright.mdl)) 
   out[5] = sum(apply(x,1,chroma.mdl))
