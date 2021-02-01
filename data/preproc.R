@@ -9,38 +9,38 @@ library(readxl)
 ## so cannot be included in the analysis path. So, we start with the XLS file.
 
 ## Load XLS
-edag  <- read_excel("ply44data.xls")
+edag.ply44  <- read_excel("ply44data.xls")
 
 ## Select columns
-eda  <- edag %>% select(ExperimentName, Subject, `Procedure[Block]`,
+eda.ply44  <- edag.ply44 %>% select(ExperimentName, Subject, `Procedure[Block]`,
                          triadlist.Cycle, Trial, triadidmain, respcue.RESP,
                          respcue.RT, top, mid, bot)
 
 ## Condition names must be numeric for model fit code
-eda$ExperimentName <- recode(eda$ExperimentName, "Triad_HTP_colour" = 1,
+eda.ply44$ExperimentName <- recode(eda.ply44$ExperimentName, "Triad_HTP_colour" = 1,
                              "Triad_LTP_colour" = 2)
 
 ## Clean up column names
-colnames(eda) <- c('cond','subj','phase','blk','trial','triad','resp','rt',
-                   )
+colnames(eda.ply44) <- c('cond','subj','phase','blk','trial','triad','resp',
+                         'rt', 'left1', 'mid2', 'right3')
 
 ## Remove the trials which are just instructions to rest between blocks
-eda  <- eda %>% filter(phase == "blockproc") %>% select(-phase)
+eda.ply44  <- eda.ply44 %>% filter(phase == "blockproc") %>% select(-phase)
 
 ## Tidy stim names
-eda  <- eda %>%
+eda.ply44  <- eda.ply44 %>%
     mutate(left1 = as.integer(str_extract(left1, "(\\d)"))) %>%
     mutate(mid2 = as.integer(str_extract(mid2, "(\\d)"))) %>%
     mutate(right3 = as.integer(str_extract(right3, "(\\d)"))) 
 
 ## Save out tidied CSV
-write_csv(eda, "ply44data.csv")
+write_csv(eda.ply44, "ply44data.csv")
 
 ## Load XLS
-edag  <- read_excel("ply62data.xls")
+edag.ply62  <- read_excel("ply62data.xls")
 
 ## Select columns
-eda.ply62  <- edag %>% select(ExperimentName, Subject, `Procedure[Block]`,
+eda.ply62  <- edag.ply62 %>% select(ExperimentName, Subject, `Procedure[Block]`,
                          triadlist.Cycle, Trial, triadidmain, respcue.RESP,
                          respcue.RT, top, mid, bot)
 
@@ -63,7 +63,7 @@ eda.ply62  <- eda.ply62 %>%
 
 
 ## Save out tidied CSV
-write_csv(eda, "ply62data.csv")
+write_csv(eda.ply62, "ply62data.csv")
 
 ## Create master data frame
 fnams  <- tibble(ppt  = list.files("ply84data", "*.csv", full.names=TRUE))
