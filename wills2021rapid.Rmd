@@ -3,11 +3,8 @@ title: "The rapid synthesis of integral stimuli"
 author: " "
 date: " "
 output:
-  bookdown::html_document2: default
   bookdown::pdf_document2:
-    keep_tex: true
-  bookdown::word_document2:
-    toc: false
+    keep_tex: false
 documentclass: article
 csl: apa.csl
 linestretch: 2
@@ -21,13 +18,16 @@ link-citations: yes
 ## Load packages
 library(MASS) ## Multidimensional scaling
 library(tidyverse) ## Note: Must come after library(MASS), due to masking
-library(readxl) ## Read Excel files
-library(vegan) ## Procrustes rotation
 library(pwr) ## Power calculations
 library(BayesFactor) ## Bayesian contingency tests
 library(effsize) ## Calculation of Cohen's d
 library(xfun) ## Convert numbers to words
 library(tools) ## Convert to words to title case
+
+## Load custom model-fit functions
+source("fitfuncs.R")
+## Load custom Bayes Factor functions
+source("BFfunc.R")
 
 ## Reinstate above to unmask authorsdx
 ##author:
@@ -88,7 +88,7 @@ pwr044  <- pwr.chisq.test(N = 48, df = 1, sig.level = .05, power=.8)
 
 ### Participants {-}
 
-Forty-eight psychology students from Plymouth University participated for partial course credit; the sample size was determined by the number of course credits available at the time of testing. Our experiment had sufficient (80%) power to detect medium-to-large effects (_w_ = `r round(pwr044$w,2)`). An effect size of approximately similar magnitude (_w_ = `r round(pwr.wills2015e2, 2)`) had previously been observed when applying more subtle time pressure to squares varying in size and brightness [@wills2015combination]. Hence, the sample size provided an initial test of our hypothesis within the resources available. Power calculations were performed using the R package `pwr` [@R-pwr]. 
+Forty-six psychology students from Plymouth University participated for partial course credit; the sample size was determined by the number of course credits available at the time of testing. Our experiment had sufficient (80%) power to detect medium-to-large effects (_w_ = `r round(pwr044$w,2)`). An effect size of approximately similar magnitude (_w_ = `r round(pwr.wills2015e2, 2)`) had previously been observed when applying more subtle time pressure to squares varying in size and brightness [@wills2015combination]. Hence, the sample size provided an initial test of our hypothesis within the resources available. Power calculations were performed using the R package `pwr` [@R-pwr]. 
 
 ### Stimuli and apparatus {-}
 
@@ -103,32 +103,21 @@ Each of the 48 physically different stimulus triads were presented twice, with o
 
 ## Results {-}
 
-```{r ply044-preproc, echo=FALSE, message=FALSE, results='hide'}
-eda  <- read_csv("ply44data.csv")
+```{r ply044-init, echo=FALSE, message=FALSE, results='hide'}
+eda.ply44  <- read_csv("data/ply44data.csv")
 
 ## List of subject numbers by condition
-ply044.N  <- eda %>% filter(!duplicated(subj)) %>% select(cond, subj)
+ply044.N  <- eda.ply44 %>% filter(!duplicated(subj)) %>% select(cond, subj)
 
-```
-
-```{r, echo=FALSE, message=FALSE}
-# leaving `r  ply044.N %>% filter(cond == 1) %>% summarise(n())` participants in the high time pressure condition, and `r  ply044.N %>% filter(cond == 2) %>% summarise(n())` in the low time pressure condition.
 ```
 
 ```{r ply044-model-init, echo=FALSE, message=FALSE, results='hide'}
 
 ## Derive model predictions for all 48 physical trial types
 
-## Extract mapping of stim code to physically presented stimulus file names, from raw data
-preds  <- edag %>% filter( `Procedure[Block]` == "blockproc") %>%
-    select(triadidmain, top, mid, bot)
-colnames(preds)  <- c("triad", "left1", "mid2", "right3")
-
-preds  <- preds %>%
-    mutate(left1 = as.integer(str_extract(left1, "(\\d)"))) %>%
-    mutate(mid2 = as.integer(str_extract(mid2, "(\\d)"))) %>%
-    mutate(right3 = as.integer(str_extract(right3, "(\\d)"))) 
-
+## Extract mapping of stim code to physically presented stimulus file names,
+## from raw data
+preds  <- eda.ply44 %>% select(triad, left1, mid2, right3)
 preds  <- distinct(preds) %>% arrange(triad)
 
 ## Extract mapping of stimulus file names to co-ordinates
@@ -146,42 +135,6 @@ preds  <- preds %>% rowwise() %>%
     mutate(R3.bri = coords$bright[right3]) 
 
 ## Add model predictions
-
-
-## Euclidean distance function
-edist  <- function(coords, sat, bri) {
-    sqrt(sat * (coords[1,1] - coords[2,1])^2 + bri * (coords[1,2] - coords[2,2])^2)
-}
-
-## Return which stimulus is odd one out, on Euclidean distance
-ooo  <- function(coords, sat, bri) {
-    coords  <-  t(array(as.numeric(coords), dim=c(2,3)))
-    dists  <- c(0,0,0)
-    dists[1]  <- edist(coords[c(2,3),], sat, bri)
-    dists[2]  <- edist(coords[c(1,3),], sat, bri)
-    dists[3]  <- edist(coords[c(1,2),], sat, bri)
-    return(which.min(dists))
-    }
-
-## Identity detection
-
-idist  <- function(coords) {
-    idist  <- 1
-    if(coords[1,1] == coords[2,1]) idist  <- 0
-    if(coords[1,2] == coords[2,2]) idist  <- 0
-    return(idist)
-    }
-
-## Return which stimulus is odd one out, on identity
-ooo.id  <- function(coords) {
-    coords  <-  t(array(as.numeric(coords), dim=c(2,3)))
-    dists  <- c(0,0,0)
-    dists[1]  <- idist(coords[c(2,3),])
-    dists[2]  <- idist(coords[c(1,3),])
-    dists[3]  <- idist(coords[c(1,2),])
-    return(which.min(dists))
-    }
-
 preds$os  <- NA
 preds$bright  <- NA
 preds$chroma  <- NA
@@ -194,155 +147,138 @@ for(rw in 1:nrow(preds)) {
     preds$ident[rw]  <- ooo.id(preds[rw, 5:10])    
 }
 
-## Subsequent code previously used hand-coded predictions loaded from
-## ply44code.csv. 
-## cde  <- read_csv("ply44code.csv")
-cde  <- preds 
-## Load custom model-fit functions
-source("fitfuncs.R")
+## Subsequent code previously used hand-coded predictions
+## loaded into 'cde'. For backwards compatibility:
+cde  <- preds
+## And also save out to be picked up by Exp. 2 analysis code
+##write_csv(cde, "tmp/stimcode.csv")
+
 ```
 
 ```{r ply044-model-fit, echo=FALSE, message=FALSE, results='hide', cache=TRUE}
 ## Fit each response model to each participant, using all response blocks to do
 ## so.
-bigdta  <- eda
-ppts  <- as.numeric(ply044.N$subj)
-bigmod <- array(0, dim=c(length(ppts),14))
-bigmod <- t(mapply(ppfits, ppts, 0)) ## This line does the model fits
-colnames(bigmod) <- c("subj","cond","blk","bright", "chroma","ud",
+
+bigdta  <- eda.ply44 ## The array 'bigdata' is assumed by the function 'ppfits'
+ppts.ply44  <- as.numeric(ply044.N$subj)
+bigmod.ply44 <- array(0, dim=c(length(ppts.ply44),14))
+bigmod.ply44 <- t(mapply(ppfits, ppts.ply44, 0)) ## This line does the model fits
+colnames(bigmod.ply44) <- c("subj","cond","blk","bright", "chroma","ud",
                       "os", "ident", "resp1", "resp2", 
                       "resp3", "model", "consist","margin")
 
 ## Convert output to more informative labels
-bigmf <- as.data.frame(bigmod)
-bigmf$model[bigmf$model > 3] <- 'Bias'
-bigmf$model[bigmf$model == 1] <- 'UD'
-bigmf$model[bigmf$model == 2] <- 'OS'
-bigmf$model[bigmf$model == 3] <- 'ID'
-bigmf$cond[bigmf$cond==1] <- '100 ms'
-bigmf$cond[bigmf$cond==2] <- '2000 ms'
-
-## Write out
-write_csv(bigmf, "ply044fit.csv")
+bigmf.ply44 <- as.data.frame(bigmod.ply44)
+bigmf.ply44$model[bigmf.ply44$model > 3] <- 'Bias'
+bigmf.ply44$model[bigmf.ply44$model == 1] <- 'UD'
+bigmf.ply44$model[bigmf.ply44$model == 2] <- 'OS'
+bigmf.ply44$model[bigmf.ply44$model == 3] <- 'ID'
+bigmf.ply44$cond[bigmf.ply44$cond==1] <- '100 ms'
+bigmf.ply44$cond[bigmf.ply44$cond==2] <- '2000 ms'
 ```
 
 ```{r ply44-model, echo=FALSE, message=FALSE}
-bigmf  <- read_csv("ply044fit.csv")
-mf.calc  <- table(bigmf$cond, bigmf$model)  # Cross tab
+mf.calc.ply44  <- table(bigmf.ply44$cond, bigmf.ply44$model)  # Cross tab
 
 ## Make table for purposes of display
-mf.sum  <- as.data.frame(mf.calc)
-colnames(mf.sum)  <- c("Time", "Model", "Freq") # Name columns
+mf.sum.ply44  <- as.data.frame(mf.calc.ply44)
+colnames(mf.sum.ply44)  <- c("Time", "Model", "Freq") # Name columns
 ## Adding absence of ID model
-mf.sum  <- mf.sum %>% add_row(Time = "100 ms", Model = "ID", Freq = 0)
-mf.sum  <- mf.sum %>% add_row(Time = "2000 ms", Model = "ID", Freq = 0)
-mf.sum  <- mf.sum %>% pivot_wider(names_from = Model, values_from = Freq)
+mf.sum.ply44  <- mf.sum.ply44 %>% add_row(Time = "100 ms", Model = "ID", Freq = 0)
+mf.sum.ply44  <- mf.sum.ply44 %>% add_row(Time = "2000 ms", Model = "ID", Freq = 0)
+mf.sum.ply44  <- mf.sum.ply44 %>% pivot_wider(names_from = Model, values_from = Freq)
 
-mf.sum  <- mf.sum %>% select(Time, UD, OS, ID, Bias)
+mf.sum.ply44  <- mf.sum.ply44 %>% select(Time, UD, OS, ID, Bias)
 
 knitr::kable(
-           mf.sum, row.names=FALSE, digits=2,
+           mf.sum.ply44, row.names=FALSE, digits=2,
            caption = 'Number of participants best fit by a unidimensional (UD), overall similarity (OS), identity (ID), or response bias (Bias) model, as a function of stimulus presentation time.',
            booktabs = TRUE
        )
 
 ## Bayesian chi-square
-mf.bf  <- contingencyTableBF(mf.calc[,2:3],
+mf.bf.ply44  <- contingencyTableBF(mf.calc.ply44[,2:3],
                              fixedMargin="rows",
                              sampleType="indepMulti")
-mf.bf.val  <- round(extractBF(mf.bf)$bf, 2)
+mf.bf.ply44.val  <- round(extractBF(mf.bf.ply44)$bf, 2)
 ```
 
-Due to technical issues, the data for two participants were not recorded. Table \@ref(tab:ply44-model) shows, as expected, that there was a strong preference for overall similarity classification at 2000 ms. However, shortening the presentation time to 100 ms appeared to have little effect. One participant was best fit by a response-bias model (i.e. always pressing the same key), one by the assumption they were responding on the basis of a single dimension. All the other participants remained best fit by an overall similarity account. Bayesian analysis, conducted with the `BayesFactor` R package [@R-BayesFactor], indicated that the ratio of unidimensional to overall similarity classifiers was unaffected by our time pressure manipulation, _BF_ = `r mf.bf.val`. This result is not diagnostic between Combination Theory and Differentiation Theory. Differentiation Theory can attribute the lack of increase in overall-similarity classification to a ceiling effect, and Combination Theory can attribute it to the time pressure manipulation being insufficiently potent to produce a detectable effect.
+Table \@ref(tab:ply44-model) shows, as expected, that there was a strong preference for overall similarity classification at 2000 ms. However, shortening the presentation time to 100 ms appeared to have little effect. One participant was best fit by a response-bias model (i.e. always pressing the same key), one by the assumption they were responding on the basis of a single dimension. All the other participants remained best fit by an overall similarity account. Bayesian analysis, conducted with the `BayesFactor` R package [@R-BayesFactor], indicated that the ratio of unidimensional to overall similarity classifiers was unaffected by our time pressure manipulation, _BF_ = `r mf.bf.ply44.val`. This result is not diagnostic between Combination Theory and Differentiation Theory. Differentiation Theory can attribute the lack of increase in overall-similarity classification to a ceiling effect, and Combination Theory can attribute it to the time pressure manipulation being insufficiently potent to produce a detectable effect.
 
 In a further, exploratory, analysis we fitted the same response models to each eight-trial block of responses separately, deriving the number of blocks which, for each participant, were best fit by each model. Although this analysis is a novel one for the triad task, we have employed it in previous experiments using the match-to-standards procedure [@wills2013overall]. We speculated that this analysis might be more sensitive to low levels of unidmimensional classification, assuming that, due to both internal and external noise, participants sometimes successfully classified on the basis of both dimensions but other times did not have time to combine both dimensions and hence responded on the basis of a single dimension. This analysis was conducted on 45 participants, as one participant had been found to best fit a response-bias model. Response-bias models can only be fit at a whole-participant level, not an individual-block level, because it is only at the participant level that the physical position of the stimuli on the screen is counterbalanced. 
 
 ```{r ply044-model-block, echo=FALSE, message=FALSE, results='hide', cache=TRUE}
 ## Fit each response model to each block of each participant, using all response blocks to do
 ## so.
-bigdta  <- eda
-bigdta <- bigdta[bigdta$subj != 44020,] # Remove response bias participant
-ppts.blk <- levels(as.factor(bigdta$subj))
-bigmodblk <- t(mapply(ppfits,rep(ppts,each=12),1:12)) # Fit to each block
-colnames(bigmodblk) <-colnames(bigmod)
+bigdta <- bigdta[bigdta$subj != 20,] # Remove response bias participant
+ppts.blk.ply44 <- as.numeric(levels(as.factor(bigdta$subj)))
+bigmodblk.ply44 <- t(mapply(ppfits,rep(ppts.blk.ply44,each=12),1:12)) # Fit to each block
+colnames(bigmodblk.ply44) <-colnames(bigmod.ply44)
 
 # Convert to more informative labels
-bigmfblk <- as.data.frame(bigmodblk)
-bigmfblk$model[bigmfblk$model == 1] <- 'UD'
-bigmfblk$model[bigmfblk$model == 2] <- 'OS'
-bigmfblk$model[bigmfblk$model == 3] <- 'ID'
-bigmfblk$cond[bigmfblk$cond==1] <- '100 ms'
-bigmfblk$cond[bigmfblk$cond==2] <- '2000 ms'
+bigmfblk.ply44 <- as.data.frame(bigmodblk.ply44)
+bigmfblk.ply44$model[bigmfblk.ply44$model == 1] <- 'UD'
+bigmfblk.ply44$model[bigmfblk.ply44$model == 2] <- 'OS'
+bigmfblk.ply44$model[bigmfblk.ply44$model == 3] <- 'ID'
+bigmfblk.ply44$cond[bigmfblk.ply44$cond==1] <- '100 ms'
+bigmfblk.ply44$cond[bigmfblk.ply44$cond==2] <- '2000 ms'
 
-## Write out
-write_csv(bigmfblk, "ply044fit-block.csv")
+## Remove response bias fit columns - these analyses were not conducted.
+bigmfblk.ply44  <- bigmfblk.ply44 %>% select(-resp1, -resp2, -resp3)
 ```
 
 ```{r ply44-block-report, echo=FALSE, message=FALSE}
-## Load saved model fit
-bigmfblk  <- read_csv("ply044fit-block.csv")
-
-## Remove response bias fit columns - these analyses were not conducted.
-bigmfblk  <- bigmfblk %>% select(-resp1, -resp2, -resp3)
-
 ## Figures for reporting
-N.ties  <- bigmfblk %>% filter(margin == 0) %>% summarise(N= n())
-N.ppts  <- length(unique(bigmfblk$subj))
-N.blks  <- length(unique(bigmfblk$blk))
+N.ties.ply44  <- bigmfblk.ply44 %>% filter(margin == 0) %>% summarise(N= n())
+N.ppts.ply44  <- length(unique(bigmfblk.ply44$subj))
+N.blks.ply44  <- length(unique(bigmfblk.ply44$blk))
 
 ## Remove tied blocks
-bigmfblk  <- bigmfblk %>% filter(margin > 0)
+bigmfblk.ply44  <- bigmfblk.ply44 %>% filter(margin > 0)
 
 ## Aggregate for analysis
 
 ## Count model wins
-blk.sum  <- as.data.frame(table(bigmfblk$subj, bigmfblk$model))
-colnames(blk.sum)  <- c("subj", "Model", "Freq")
-blk.sum  <- blk.sum %>% pivot_wider(names_from=Model, values_from=Freq)
+blk.sum.ply44  <- as.data.frame(table(bigmfblk.ply44$subj, bigmfblk.ply44$model))
+colnames(blk.sum.ply44)  <- c("subj", "Model", "Freq")
+blk.sum.ply44  <- blk.sum.ply44 %>% pivot_wider(names_from=Model, values_from=Freq)
 
 ## Bind condition data back into frame
-conds  <- bigmfblk %>% select(subj, cond) %>% distinct
-conds$subj  <- as.factor(conds$subj)
-blk.sum  <- right_join(conds, blk.sum)
+conds.ply44  <- bigmfblk.ply44 %>% select(subj, cond) %>% distinct
+conds.ply44$subj  <- as.factor(conds.ply44$subj)
+blk.sum.ply44  <- right_join(conds.ply44, blk.sum.ply44)
 
 ## Calculate proportions (note: some missing blocks due to ties)
-blk.sum  <- blk.sum %>% mutate(total = ID+OS+UD)
-blk.sum  <- blk.sum %>% mutate(ID.p = ID/total, OS.p = OS/total, UD.p = UD/total)
+blk.sum.ply44  <- blk.sum.ply44 %>% mutate(total = ID+OS+UD)
+blk.sum.ply44  <- blk.sum.ply44 %>% mutate(ID.p = ID/total, OS.p = OS/total, UD.p = UD/total)
 
-blk.report  <- blk.sum %>% group_by(cond) %>%
+blk.report.ply44  <- blk.sum.ply44 %>% group_by(cond) %>%
     summarise(UD = mean(UD.p),
               OS = mean(OS.p),
               ID = mean(ID.p)) 
 
 ## Produce table for report
-colnames(blk.report)  <- c("Time", "UD", "OS", "ID")
+colnames(blk.report.ply44)  <- c("Time", "UD", "OS", "ID")
 
 knitr::kable(
-           blk.report, row.names=FALSE, digits=3,
+           blk.report.ply44, row.names=FALSE, digits=3,
            caption = 'Mean proportion of unidimensional (UD), overall similarity (OS), and identity (ID) blocks, as a function of stimulus presentation time.',
            booktabs = TRUE
        )
 
-ud.bf  <- ttestBF(formula = UD.p ~ cond, data = data.frame(blk.sum))
-ud.bf.val  <- round(extractBF(ud.bf)$bf, 2)
+ud.bf.ply44  <- ttestBF(formula = UD.p ~ cond, data = data.frame(blk.sum.ply44))
+ud.bf.val.ply44  <- round(extractBF(ud.bf.ply44)$bf, 2)
 ```
 
-On `r round(N.ties*100/(N.ppts*N.blks),0)`% of blocks, models tied for first place; these blocks were removed from further analysis. Table \@ref(tab:ply44-block-report) shows the results of this by-block analysis. The crucial result is that participants in the 100 ms condition produce more classification blocks best fit by a unidimensional response model than participants in the 2000 ms condition, _BF_ = `r ud.bf.val`. Hence time pressure increased unidimensional responding, even for these integral stimuli. This result is predicted by Combination Theory, and disconfirms Differentiation Theory. 
+On `r round(N.ties.ply44*100/(N.ppts.ply44*N.blks.ply44),0)`% of blocks, models tied for first place; these blocks were removed from further analysis. Table \@ref(tab:ply44-block-report) shows the results of this by-block analysis. The crucial result is that participants in the 100 ms condition produce more classification blocks best fit by a unidimensional response model than participants in the 2000 ms condition, _BF_ = `r ud.bf.val.ply44`. Hence time pressure increased unidimensional responding, even for these integral stimuli. This result is predicted by Combination Theory, and disconfirms Differentiation Theory. 
 
 One obvious criticism of this conclusion is that it is based on an analysis which, despite having precedents in the literature, was only engaged after our a priori analysis failed to reveal conclusive results. One might thus attribute the support provided to Combination Theory to a form of 'p hacking' [@simmons2011false]. For this reason, we conducted a direct replication.
 
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'MASS', 'vegan', 'pwr'
-), 'packages.bib')
-```
-
 # Experiment 2 {-#ply062}
 
 ```{r ply062-preproc, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
-eda.ply62  <- read_csv("ply62data.csv")
+eda.ply62  <- read_csv("data/ply62data.csv")
 
 ## List of subject numbers by condition
 ply062.N  <- eda.ply62 %>% filter(!duplicated(subj)) %>% select(cond, subj)
@@ -352,29 +288,27 @@ ply062.n2  <-  as.numeric(ply062.N %>% filter(cond == 2) %>% summarise(n()))
 ```
 
 ```{r ply062-pwr, , echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
-## Power calclaultion on basis of ply044 effect size
-ud.cohen  <- cohen.d(blk.sum$UD.p ~ blk.sum$cond)
+## Power calculation on basis of ply044 effect size
+ud.cohen.ply44  <- cohen.d(blk.sum.ply44$UD.p ~ blk.sum.ply44$cond)
 
-pwr.ply062  <- pwr.t2n.test(d=ud.cohen$estimate, alternative="greater", n1 = ply062.n1,
-                            n2 = ply062.n2)
+pwr.ply062  <- pwr.t2n.test(d=ud.cohen.ply44$estimate, alternative="greater",
+                            n1 = ply062.n1, n2 = ply062.n2)
 
 ```
 
 ## Method {-}
 
-Fifty psychology students from Plymouth University participated for partial course credit; this sample size has sufficient (`r round(pwr.ply062$power*100, 0)`%) power to detect the medium-to-large effect observed in the by-blocks analysis of the previous experiment (d = `r round(ud.cohen$estimate, 2)`). The stimuli, apparatus, and procedure, were identical to the previous experiment.
+Fifty psychology students from Plymouth University participated for partial course credit; this sample size has sufficient (`r round(pwr.ply062$power*100, 0)`%) power to detect the medium-to-large effect observed in the by-blocks analysis of the previous experiment (d = `r round(ud.cohen.ply44$estimate, 2)`). The stimuli, apparatus, and procedure, were identical to the previous experiment.
 
 ## Results {-}
 
 ```{r ply062-model-fit, echo=FALSE, message=FALSE, results='hide', cache=TRUE}
 ## Fit each response model to each participant, using all response blocks to do
 ## so.
-
 ## We still need to do this in order to remove anyone who is best fit by a
 ## response bias model.
-source("fitfuncs.R")
-cde  <- read_csv("ply44code.csv")
-bigdta  <- eda.ply62
+
+bigdta  <- eda.ply62 ## Name 'bigdta' assumed by ppfits function
 ppts.ply62  <- as.numeric(ply062.N$subj)
 bigmod.ply62 <- array(0, dim=c(length(ppts.ply62),14))
 bigmod.ply62 <- t(mapply(ppfits, ppts.ply62, 0)) ## This line does the model fits
@@ -390,14 +324,9 @@ bigmf.ply62$model[bigmf.ply62$model == 2] <- 'OS'
 bigmf.ply62$model[bigmf.ply62$model == 3] <- 'ID'
 bigmf.ply62$cond[bigmf.ply62$cond==1] <- '100 ms'
 bigmf.ply62$cond[bigmf.ply62$cond==2] <- '2000 ms'
-
-## Write out
-write_csv(bigmf.ply62, "ply062fit.csv")
 ```
 
 ```{r ply062-model-block, echo=FALSE, message=FALSE, results='hide', cache=TRUE}
-bigmf.ply62  <- read_csv("ply062fit.csv")
-
 exclude  <- bigmf.ply62 %>% filter(model == "Bias") %>% select(subj)
 
 ## Fit each response model to each block of each participant, using all response blocks to do
@@ -416,17 +345,11 @@ bigmfblk.ply62$model[bigmfblk.ply62$model == 3] <- 'ID'
 bigmfblk.ply62$cond[bigmfblk.ply62$cond==1] <- '100 ms'
 bigmfblk.ply62$cond[bigmfblk.ply62$cond==2] <- '2000 ms'
 
-## Write out
-write_csv(bigmfblk.ply62, "ply062fit-block.csv")
+## Remove response bias fit columns - these analyses were not conducted.
+bigmfblk.ply62  <- bigmfblk.ply62 %>% select(-resp1, -resp2, -resp3)
 ```
 
 ```{r ply62-block-report, echo=FALSE, message=FALSE}
-## Load saved model fit
-bigmfblk.ply62  <- read_csv("ply062fit-block.csv")
-
-## Remove response bias fit columns - these analyses were not conducted.
-bigmfblk.ply62  <- bigmfblk.ply62 %>% select(-resp1, -resp2, -resp3)
-
 ## Figures for reporting
 N.ties.ply62  <- bigmfblk.ply62 %>% filter(margin == 0) %>% summarise(N= n())
 N.ppts.ply62  <- length(unique(bigmfblk.ply62$subj))
@@ -471,18 +394,15 @@ ud.bf.ply62  <- ttestBF(formula = UD.p ~ cond, data = data.frame(blk.sum.ply62))
 ud.bf.val.ply62  <- round(extractBF(ud.bf.ply62)$bf, 2)
 
 ## Use the Dienes method to incorporate the prior
-source("BFfunc.R")
 ttest.ply62  <- t.test(UD.p ~ cond, data = blk.sum.ply62)
 mean_diff  <- as.numeric(ttest.ply62$estimate[1] - ttest.ply62$estimate[2])
 sd_err  <- mean_diff / ttest.ply62$statistic
-mean_theory  <- as.numeric(blk.report[1, 'UD'] - blk.report[2, 'UD'])
-mean_theory  <- mean_theory 
+mean_theory  <- as.numeric(blk.report.ply44[1, 'UD'] - blk.report.ply44[2, 'UD'])
 dienes.bf.ply62  <- Bf(sd=sd_err, obtained=mean_diff, uniform=0, 
          meanoftheory=mean_theory, sdtheory=mean_theory/2, tail=1)
-##dienes.bf.ply62$BayesFactor
 
 ### NOW SAVE WORKSPACE SO THAT SOM-R CAN PICK UP WHERE WE LEFT OFF
-save.image("workspace.RData")
+save.image("tmp/workspace.RData")
 ```
 
 `r toTitleCase(n2w(nrow(exclude)))` participant was excluded due to being best fit by a response-bias model. On `r round(N.ties.ply62*100/(N.ppts.ply62*N.blks.ply62),0)`% of blocks, models tied for first place; these blocks were removed from further analysis. Table \@ref(tab:ply62-block-report) shows the key results, which are very similar to the previous experiment. Crucially, increased time pressure once again increased the prevalance of unidimensional classification of these integral stimuli, _BF_ = `r round(dienes.bf.ply62$BayesFactor,0)`. This Bayesian calculation makes use of a prior based on the size of the effect in the previous experiment. Specifically, following @dienes2011bayesian, we used a normally-distributed prior of effect sizes, centered on the observed difference in the previous experiment, and with a standard deviation of half that observed difference. There is also Bayesian evidence for the effect of time pressure on unidimensional responding  if one entirely ignores the prior provided by the previous experiment and uses a non-directional test against a non-informative prior, as performed in the previous experiment, _BF_ = `r ud.bf.val.ply62`. 
@@ -503,5 +423,8 @@ The authors thank Gemma Williams and Anna Robertson for their assistance in data
 
 # References {-}
 
-
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(.packages(), 'packages.bib')
+```
 

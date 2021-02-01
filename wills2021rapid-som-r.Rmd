@@ -4,11 +4,8 @@ subtitle: "Supplementary Online Materials (peer reviewed)"
 author: " "
 date: " "
 output:
-  bookdown::html_document2: default
   bookdown::pdf_document2:
-    keep_tex: true
-  bookdown::word_document2:
-    toc: false
+    keep_tex: false
 documentclass: article
 linestretch: 2
 geometry: "left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm"
@@ -20,16 +17,13 @@ link-citations: yes
 
 ```{r pkgs, echo=FALSE, warning=FALSE, message=FALSE}
 ### LOAD WORKSPACE FROM WHERE THE MAIN PAPER LEFT OFF
-load("workspace.RData")
+load("tmp/workspace.RData")
 
 ## Load packages
 library(MASS) ## Multidimensional scaling
 library(tidyverse) ## Note: Must come after library(MASS), due to masking
-library(readxl) ## Read Excel files
 library(vegan) ## Procrustes rotation
-library(pwr) ## Power calculations
 library(BayesFactor) ## Bayesian contingency tests
-library(effsize) ## Calculation of Cohen's d
 library(xfun) ## Convert numbers to words
 library(tools) ## Convert to words to title case
 
@@ -63,9 +57,9 @@ The experiment had two blocks of 56 trials. A block comprised two presentations 
 
 ## Results and discussion {-}
 
-```{r dist-mat, echo=FALSE, warning=FALSE}
+```{r dist-mat, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 ## Load data
-alldat  <- read_csv("ply84data.csv")
+alldat  <- read_csv("data/ply84data.csv")
 
 ## Recode for stimulus pair, regardless of screen location, and as distance
 alldat  <- alldat %>% rowwise() %>%
@@ -108,8 +102,8 @@ mds.model  <- isoMDS(dm, k = 2, p = 2)
 The average pairwise similarity ratings for the eight stimuli are shown in Table S\@ref(tab:sim-ply084). Two-dimensional, nonmetric multidimensional scaling [@kruskal1964nonmetric] was applied to these data, using the `isoMDS` function of the R package `MASS` [@R-MASS]. The stress of the Euclidean solution (`r round(mds.model$stress, 2)`) was lower than the city-block solution (`r round(mds.model.city$stress, 2)`), implying that these stimuli are better considered as integral than separable by Garner's operational definition. 
 
 ```{r echo=FALSE, message=FALSE, results='hide'}
-munsell  <- read_csv("munsell-coords.csv")
-munsell  <- munsell %>% mutate(chroma = chroma / 2) %>% select(-stim)
+munsell  <- read_csv("munsell-coords_red.csv")
+munsell  <- munsell %>% mutate(chroma = chroma / 2) %>% select(chroma, bright)
 cmp  <- procrustes(munsell, mds.model, truemean=TRUE)
 ```
 
@@ -169,10 +163,6 @@ for(rw in 1:nrow(preds)) {
     preds.84$chroma[rw]  <- ooo(preds.84[rw, 5:10], 1, 0)
 }
 
-preds$os - preds.84$os
-preds$bright - preds.84$bright
-preds$chroma - preds.84$chroma
-
 ## Load into array expected by fitting functions
 cde <- preds.84 
 
@@ -180,13 +170,10 @@ cde <- preds.84
 
 ```{r ply084-model-fit, echo=FALSE, message=FALSE, results='hide', cache=TRUE}
 ## Fit everyone we've tested against MDS co-ords
-eda <- eda %>% add_column(exp = "ply044")
+eda.ply44 <- eda.ply44 %>% add_column(exp = "ply044")
 eda.ply62  <- eda.ply62 %>% add_column(exp = "ply062")
-eda.ply84  <- bind_rows(eda, eda.ply62)
+eda.ply84  <- bind_rows(eda.ply44, eda.ply62)
 ## (Thankfully subject numbers are unique across both experiments)
-
-## Load custom model-fit functions
-source("fitfuncs.R")
 
 ## Fit each response model to each participant, using all response blocks to do
 ## so.
@@ -206,14 +193,9 @@ bigmf.ply84$model[bigmf.ply84$model == 2] <- 'OS'
 bigmf.ply84$model[bigmf.ply84$model == 3] <- 'ID'
 bigmf.ply84$cond[bigmf.ply84$cond==1] <- '100 ms'
 bigmf.ply84$cond[bigmf.ply84$cond==2] <- '2000 ms'
-
-## Write out
-write_csv(bigmf.ply84, "ply084fit.csv")
 ```
 
 ```{r ply084-model-block, echo=FALSE, message=FALSE, results='hide', cache=TRUE}
-bigmf.ply84  <- read_csv("ply084fit.csv")
-
 exclude.84 <- bigmf.ply84 %>% filter(model == "Bias") %>% select(subj)
 
 ## Fit each response model to each block of each participant, using all response blocks to do
@@ -232,17 +214,11 @@ bigmfblk.ply84$model[bigmfblk.ply84$model == 3] <- 'ID'
 bigmfblk.ply84$cond[bigmfblk.ply84$cond==1] <- '100 ms'
 bigmfblk.ply84$cond[bigmfblk.ply84$cond==2] <- '2000 ms'
 
-## Write out
-write_csv(bigmfblk.ply84, "ply084fit-block.csv")
+## Remove response bias fit columns - these analyses were not conducted.
+bigmfblk.ply84  <- bigmfblk.ply84 %>% select(-resp1, -resp2, -resp3)
 ```
 
 ```{r ply84-block-report, echo=FALSE, message=FALSE}
-## Load saved model fit
-bigmfblk.ply84  <- read_csv("ply084fit-block.csv")
-
-## Remove response bias fit columns - these analyses were not conducted.
-bigmfblk.ply84  <- bigmfblk.ply84 %>% select(-resp1, -resp2, -resp3)
-
 ## Figures for reporting
 N.ties.ply84  <- bigmfblk.ply84 %>% filter(margin == 0) %>% summarise(N= n())
 N.ppts.ply84  <- length(unique(bigmfblk.ply84$subj))
@@ -294,3 +270,8 @@ our re-analysis. Using the MDS co-ordinates for these stimuli approximately doub
 Further inspection of Figure S\@ref(fig:ply084-mds) reveals that no stimulus is identically placed on either dimension (this is true even for stimuli 2 and 4 on the chroma dimension). As a consequence, the Identity response model can never predict partcipants' responses, leading to reported zero prevalence of Identity responding in Table S\@ref(tab:ply84-block-report). It would in principle be possible to generalize the Identity response model such that it could deal with near-identity (such as stimuli 2 and 4 on chroma) effectively, and the work of @smith1989model suggests a way in which this could be done. However, given the very low prevalence of ID classification observed for these stimuli in our earlier analysis, where the use of Munsell co-ordinates would have made such responding detectable if it had occurred, such a generalization of the Identity model would be unlikely to change the conclusions of the current work. 
 
 # References {-}
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(.packages(), 'packages.bib')
+```
