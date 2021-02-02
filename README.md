@@ -1,5 +1,9 @@
 # pu084github
 
+This repository contains all the code required to reproduce the manuscript:
+
+Wills, A.J., Edmunds, C.E.R, & Milton, F. (2021). The rapid synthesis of integral stimuli. _preprint_.
+
 ## Compiling the manuscript
 
 Run `to-compile.R` to compile the manuscript. It produces both the main manuscript (`wills2021rapid.pdf`) and the online supplementary materials (`wills2021rapid-som-r.pdf`). Compilation may take a couple of minutes. 
