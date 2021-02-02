@@ -20,12 +20,7 @@ link-citations: yes
 load("tmp/workspace.RData")
 
 ## Load packages
-library(MASS) ## Multidimensional scaling
-library(tidyverse) ## Note: Must come after library(MASS), due to masking
-library(vegan) ## Procrustes rotation
-library(BayesFactor) ## Bayesian contingency tests
-library(xfun) ## Convert numbers to words
-library(tools) ## Convert to words to title case
+source("packages.R")
 
 ## Reinstate above to unmask authors
 ##author:
