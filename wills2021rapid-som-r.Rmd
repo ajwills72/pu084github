@@ -30,23 +30,20 @@ source("packages.R")
 ## date: "`r Sys.Date()`"
 ```
 
-# Experiment 3 {-}
+The additional experiment reported in these supplementary materials had two purposes. First, we wished to 
+assess whether the stimuli as presented in the first two experiments met a standard Garner definition of integrality, i.e. the pairwise similarity ratings are better fit by a Euclidean than a city-block multidimensional scaling (MDS) solution [@garner1976interaction]. Second, we wished to assess the closeness of the resulting MDS solution to the solution provided by the Munsell color codes attributed to these stimuli. If differences are found, we would then use the MDS solution in a re-analysis of the triad data that represents the stimuli in terms of a psychological, rather than physical, stimulus space.
 
-The purpose of the additional experiment reported in these supplementary materials was two-fold: 
-
-1. To assess whether the stimuli as presented in the first two experiments meet a standard Garner definition of integral, i.e. the pairwise similarity ratings are better fit by a Euclidean than a city-block multidimensional scaling (MDS) solution [@garner1976interaction].
-
-2. To assess the closeness of the resulting MDS solution to the solution provided by the Munsell color codes attributed to these stimuli. If differences are found, the MDS solution can be used in a re-analysis of the triad data that represents the stimuli in terms of a psychological, rather than physical, stimulus space.
+# Experiment S1 {-}
 
 ## Method {-}
 
 ### Participants, apparatus and stimuli {-}
 
-Twenty-four participants were tested in this experiment, using PsychoPy software [@pierce2007psychopy], version 1.83, to present the stimuli and to collect responses via a standard PC keyboard and mouse. The stimuli were the same as in the two main experiments.
+Twenty-four participants were tested in this experiment, using PsychoPy software [@pierce2007psychopy], version 1.83, to present the stimuli and to collect responses via a standard PC keyboard and mouse. The stimuli were the same as in the two experiments in the main manuscript.
 
 ### Procedure {-}
 
-After some initial instructions explaining the task, and emphasizing accuracy over speed, the experiment began. On each trial, two square stimuli were shown in the center of the screen, arranged horizontally, and placed 2cm apart as measured from their centers. Participants were asked to rate the similarity of each pair of stimuli using a 1-9 scale. The scale was visually presented on the screen, below the square stimuli, along with text specifying that "1 = not very similar" and "9 = very similar". The number 5 was also indicated on the scale, but not further labelled. A moveable rectangular slider was present on this scale. Initially placed above the number 5, participants moved this slider to one of the nine available ratings, using the mouse, and indicated their response with a mouse click. The screen cleared immediately after the participant's response, and the next trial began one second later.
+After some initial instructions explaining the task, and emphasizing accuracy over speed, the experiment began. On each trial, two square stimuli were shown in the center of the screen, arranged horizontally, and placed 2cm apart as measured from their centers. Participants were asked to rate the similarity of each pair of stimuli using a 1-9 scale. The scale was visually presented on the screen, below the square stimuli, along with text specifying that "1 = not very similar" and "9 = very similar". The number 5 was also indicated on the scale, but not further labelled. A moveable rectangular slider was present on this scale. Initially placed above the number 5, participants moved this slider to one of the nine available ratings using the mouse and indicated their response with a mouse click. The screen cleared immediately after the participant's response, and the next trial began one second later.
 
 The experiment had two blocks of 56 trials. A block comprised two presentations of each possible pair of the eight stimuli, with left-right position of the stimulus pair counterbalanced across those two presentations. Trial ordering was randomized separately for each block and participant. 
 
@@ -76,7 +73,7 @@ dm  <- as.dist(dm)
 
 ```{r sim-ply084, tidy=FALSE, echo=FALSE}
 ## This is a bit of a hack because kable can't deal with the 'dist'
-## data type of distance matricies.
+## data type of distance matrices.
 options(knitr.kable.NA = '')
 show.sm[show.sm == 10]  <- NA
 show.sm  <- show.sm[2:8,1:7]
@@ -94,7 +91,7 @@ mds.model.city  <- isoMDS(dm, k = 2, p = 1)
 mds.model  <- isoMDS(dm, k = 2, p = 2)
 ```
 
-The average pairwise similarity ratings for the eight stimuli are shown in Table S\@ref(tab:sim-ply084). Two-dimensional, nonmetric multidimensional scaling [@kruskal1964nonmetric] was applied to these data, using the `isoMDS` function of the R package `MASS` [@R-MASS]. The stress of the Euclidean solution (`r round(mds.model$stress, 2)`) was lower than the city-block solution (`r round(mds.model.city$stress, 2)`), implying that these stimuli are better considered as integral than separable by Garner's operational definition. 
+The average pairwise similarity ratings for the eight stimuli are shown in Table S\@ref(tab:sim-ply084). Two-dimensional, non-metric multidimensional scaling [@kruskal1964nonmetric] was applied to these data, using the `isoMDS` function of the R package `MASS` [@R-MASS]. The stress of the Euclidean solution (`r round(mds.model$stress, 2)`) was lower than the city-block solution (`r round(mds.model.city$stress, 2)`), implying that these stimuli are better considered as integral than separable by Garner's operational definition. 
 
 ```{r echo=FALSE, message=FALSE, results='hide'}
 munsell  <- read_csv("munsell-coords_red.csv")
@@ -102,7 +99,7 @@ munsell  <- munsell %>% mutate(chroma = chroma / 2) %>% select(chroma, bright)
 cmp  <- procrustes(munsell, mds.model, truemean=TRUE)
 ```
 
-Figure S\@ref(fig:ply084-mds) shows the Euclidean MDS solution, scaled and Procrustian rotated for best fit to the co-ordinates of the stimuli in the Munsell color system; these rigid transformations do not affect the distance relationships in the MDS solution. The `procrustes` function of the R package `vegan` [@R-vegan] was used for this part of the analysis. Following standard practice, we assumed that, in the Munsell system, two units of chroma are psychologically equivalent to one unit of brightness [@nickerson1936specification; @nosofsky1987attention; @shepard1958stimulus]. 
+Figure S\@ref(fig:ply084-mds) shows the Euclidean MDS solution, scaled and Procrustean rotated for best fit to the co-ordinates of the stimuli in the Munsell color system; these rigid transformations do not affect the distance relationships in the MDS solution. The `procrustes` function of the R package `vegan` [@R-vegan] was used for this part of the analysis. Following standard practice, we assumed that, in the Munsell system, two units of chroma are psychologically equivalent to one unit of brightness [@nickerson1936specification; @nosofsky1987attention; @shepard1958stimulus]. 
 
 ```{r ply084-mds, fig.cap="Multidimensional scaling solution", out.width='80%', fig.align='center', echo=FALSE}
 rot  <- data.frame(fitted(cmp))
@@ -262,7 +259,7 @@ ud.bf.val.ply84  <- round(extractBF(ud.bf.ply84)$bf, 0)
 `r toTitleCase(n2w(nrow(exclude.84)))` participants were excluded due to being best fit by a response-bias model. On `r round(N.ties.ply84*100/(N.ppts.ply84*N.blks.ply84),0)`% of blocks, models tied for first place; these blocks were removed from further analysis. Table S\@ref(tab:ply84-block-report) shows the results of
 our re-analysis. Using the MDS co-ordinates for these stimuli approximately doubled the magnitude of the effect observed with the Munsell co-ordinates; unidimensional responding rose from 9% at 2000 ms to 32% at 100 ms. Bayesian analysis, employing a non-informative prior, provides very strong support for an effect of time pressure on the prevalence of unidimensional responding, _BF_ = `r ud.bf.val.ply84`. Hence, overall, the three experiments presented in the current paper provide strong evidence for the effect predicted by Combination Theory, and disconfirm Differentiation Theory.
 
-Further inspection of Figure S\@ref(fig:ply084-mds) reveals that no stimulus is identically placed on either dimension (this is true even for stimuli 2 and 4 on the chroma dimension). As a consequence, the Identity response model can never predict partcipants' responses, leading to reported zero prevalence of Identity responding in Table S\@ref(tab:ply84-block-report). It would in principle be possible to generalize the Identity response model such that it could deal with near-identity (such as stimuli 2 and 4 on chroma) effectively, and the work of @smith1989model suggests a way in which this could be done. However, given the very low prevalence of ID classification observed for these stimuli in our earlier analysis, where the use of Munsell co-ordinates would have made such responding detectable if it had occurred, such a generalization of the Identity model would be unlikely to change the conclusions of the current work. 
+Further inspection of Figure S\@ref(fig:ply084-mds) reveals that no stimulus is identically placed on either dimension (this is true even for stimuli 2 and 4 on the chroma dimension). As a consequence, the Identity response model can never predict participants' responses, leading to reported zero prevalence of Identity responding in Table S\@ref(tab:ply84-block-report). It would in principle be possible to generalize the Identity response model such that it could deal with near-identity (such as stimuli 2 and 4 on chroma) effectively, and the work of @smith1989model suggests a way in which this could be done. However, given the very low prevalence of ID classification observed for these stimuli in our earlier analysis, where the use of Munsell co-ordinates would have made such responding detectable if it had occurred, such a generalization of the Identity model would be unlikely to change the conclusions of the current work. 
 
 # References {-}
 

@@ -41,3 +41,9 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# Specific raw data files, available on request
+# (They are in local lab archives under DAUs ply44, ply62, ply84)
+data/ply44data.xls
+data/ply62data.xls
+data/ply84data/*
