@@ -18,13 +18,7 @@ You can use the `checkpoint` package to recreate the R environment that was used
 
 ## List of files
 
-**apa.csl** - Style file for APA-format referencing
-
-**BFfunc.R** - Custom function to calculate Bayes Factor by the Dienes (2011) method
-
-**book.bib** - List of references, in bibtex format.
-
-**clrtmp.sh** - Shell script to clear all temporary files generated (Linux only)
+### Data
 
 **data/ply44data.csv** - Trial-level data for Experiment 1. Columns are as follows: _cond_ : Experimental condition (1 = 100 ms, 2 = 2000 ms), _subj_: Participant number, _blk_: Block number, _trial_: Trial number, _triad_: Arbitrary code for stimulus presented, _resp_: Physical response key depressed, _rt_: Response time, _left1_ : Stimulus presented on the left of the triad (number indicates filename e.g. 1 = 1.png); _mid2_: stimulus presented in the middle of the triad, _right3_: stimulus presented of the right of the triad.
 
@@ -35,22 +29,28 @@ You can use the `checkpoint` package to recreate the R environment that was used
 **data/preproc.R** - R script that generates trial-level data from raw E-prime
 and PsychoPy files (raw files available on request).
 
-**fitfuncs.R** - Custom functions for fitting the response model.
+### Stimuli
 
-**LICENSE** - License file (GPL3)
+**stimuli** - Directory, containing the eight stimulus files used in all experiments. 
+
+### R, Rmarkdown, and associated files
+
+**apa.csl** - Style file for APA-format referencing
+
+**BFfunc.R** - Custom function to calculate Bayes Factor by the Dienes (2011) method
+
+**book.bib** - List of references, in bibtex format.
+
+**fitfuncs.R** - Custom functions for fitting the response model.
 
 **munsell-coords_red.csv** - Co-ordinates of stimuli in Munsell space.
 
 **packages.R** - R script loading all packages required (helps to keep this in
 one place, particularly for checkpointing)
 
-**README.md** - This file
-
 **stimfig.png** - Figure 1 in the manuscript.
 
 **stimfig.svg** - Original source file for stimfig.png
-
-**stimuli** - The eight stimulus files used in all experiments. 
 
 **tmp** - Initially empty directory to which R workspace is stored.
 
@@ -59,3 +59,13 @@ one place, particularly for checkpointing)
 **wills2021rapid.Rmd** - Rmarkdown file containing the text and analysis script for the main manuscript
 
 **wills2021rapid-som-r.Rmd** - Rmarkdown file containing the text and analysis script for the supplementary online materials. 
+
+### Other 
+
+**clrtmp.sh** - Shell script to clear all temporary files generated (Linux only)
+
+**LICENSE** - License file (GPL3)
+
+**README.md** - This file
+
+

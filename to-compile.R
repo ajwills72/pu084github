@@ -1,4 +1,4 @@
-library(checkpoint)
+## library(checkpoint)
 ## checkpoint("2021-02-02")
 library(rmarkdown)
 library(bookdown)
