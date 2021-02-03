@@ -408,7 +408,7 @@ Returning to the experiments reported in the current paper, the same-lab replica
 
 # Acknowledgments {-} 
 
-The authors thank Gemma Williams and Anna Robertson for their assistance in data collection.
+The authors thank (_withheld for masked manusciprt_) and (_withheld for masked manuscript_) for their assistance in data collection.
 
 # Open Practices Statement {-}
 
