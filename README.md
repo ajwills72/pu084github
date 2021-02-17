@@ -6,7 +6,7 @@ Wills, A.J., Edmunds, C.E.R, & Milton, F. (2021). The rapid synthesis of integra
 
 ## Compiling the manuscript
 
-Run `to-compile.R` to compile the manuscript. It produces both the main manuscript (`wills2021rapid.pdf`) and the online supplementary materials (`wills2021rapid-som-r.pdf`). Compilation may take a couple of minutes. 
+Run `to-compile.R` to compile the manuscript. It produces both the main manuscript (`wills2021rapid.pdf`) and the online supplementary materials (`wills2021rapid-som.pdf`). Compilation may take a couple of minutes. 
 
 ## How it works
 
@@ -14,7 +14,7 @@ The script `to-compile.R` runs the two Rmarkdown files in turn. These run the an
 
 ## Reproducibility
 
-You can use the `checkpoint` package to recreate the R environment that was used in these analyses. Depending on your system, the commands to set up a checkpoint may take 10+ minutes to run, so are commented out in `to-compile.R`. Uncomment to use this functionality
+You can use the `checkpoint` package to recreate the R environment that was used in these analyses. Depending on your system, the commands to set up a checkpoint may take 10+ minutes to run, so are commented out in `to-compile.R`. Uncomment to use this functionality. 
 
 ## List of files
 
@@ -58,7 +58,7 @@ one place, particularly for checkpointing)
 
 **wills2021rapid.Rmd** - Rmarkdown file containing the text and analysis script for the main manuscript
 
-**wills2021rapid-som-r.Rmd** - Rmarkdown file containing the text and analysis script for the supplementary online materials. 
+**wills2021rapid-som.Rmd** - Rmarkdown file containing the text and analysis script for the supplementary online materials. 
 
 ### Other 
 
