@@ -1,42 +1,59 @@
---- 
-title: "The rapid synthesis of integral stimuli"
-author:
-  - Andy J. Wills, University of Plymouth, UK
-  - C.E.R. Edmunds, Queen Mary University of London, UK
-  - Fraser Milton, University of Exeter, UK
-date: "`r Sys.Date()`"
-output:
-  bookdown::pdf_document2:
-    keep_tex: false
-documentclass: article
-csl: apa.csl
-linestretch: 2
-geometry: "left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm"
-bibliography: [book.bib, packages.bib]
-toc: false
-link-citations: yes
+---
+title             : "The rapid synthesis of integral stimuli"
+shorttitle        : "RAPID SYNTHESIS OF INTEGRAL STIMULI"
+
+author: 
+  - name          : "Andy J. Wills"
+    affiliation   : "1"
+    corresponding : yes
+    address       : "School of Psychology, University of Plymouth, Drake Circus, Plymouth. PL4 8AA. United Kingdom"
+    email         : "andy@willslab.co.uk"	  
+  - name          : "C. E. R. Edmunds"
+    affiliation   : "2"
+  - name          : "Fraser Milton"
+    affiliation   : "3"
+
+affiliation:
+  - id            : "1"
+    institution   : "University of Plymouth"
+  - id            : "2"
+    institution   : "Queen Mary University of London"
+  - id            : "3"
+    institution   : "University of Exeter"
+
+authornote: |
+
+  The authors thank Anna Roberts and Gemma Williams for their assistance in data collection.
+
+abstract: |
+
+  Integral stimuli (e.g. colors varying in saturation and brightness) are classically considered to be processed holistically (i.e. as undifferentiated stimulus wholes); people analyze such stimuli into their consistent dimensions only with substantial time, effort, training, or instruction [@foard1984holistic]. In contrast, Combination Theory [@wills2015combination] argues that the dimensions of integral stimuli are quickly combined. Through an investigation of the effects of time pressure, we support Combination Theory over the classical holistic-to-analytic account. Specifically, using colored squares varying in saturation and brightness, we demonstrate that the prevalence of single-dimension classification increases as stimulus presentation time is reduced. We conclude that integral stimuli are not slowly analyzed, they are quickly synthesized.
+  
+bibliography      : [book.bib, packages.bib]
+
+floatsintext      : yes
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : no
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
 ---
 
-```{r pkgs, echo=FALSE, warning=FALSE, message=FALSE}
+```{r setup, include = FALSE}
 ## Load packages
 source("packages.R")
 
 ## Load custom model-fit functions
 source("fitfuncs.R")
+
 ## Load custom Bayes Factor functions
 source("BFfunc.R")
-
 ```
-
-### Abstract {-}
-
-Integral stimuli (e.g. colours varying in saturation and brightness) are classically considered to be processed holistically (i.e. as undifferentiated stimulus wholes); people analyze such stimuli into their consistent dimensions only with substantial time, effort, training, or instruction [@foard1984holistic]. In contrast, Combination Theory [@wills2015combination] argues that the dimensions of integral stimuli are quickly combined. Through an investigation of the effects of time pressure, we support Combination Theory over the classical holistic-to-analytic account. Specifically, using colored squares varying in saturation and brightness, we demonstrate that the prevalence of single-dimension classification increases as stimulus presentation time is reduced. We conclude that integral stimuli are not slowly analyzed, they are quickly synthesized. 
-
-### Statement of relevance {-}
-
-In everyday life, and across psychology, we distinguish between 'holistic' and 'analytic' styles of thought. For example, we might propose that some cultures, professions, personality types, or genders, are more prone to approaching problems from a holistic or an analytic perspective. The same may be said of informal theories of education and development, where one sometimes hears that 'analytic skills' increase with age. The use of the word 'analytic' employs a metaphor that thought begins with compounds, and that our 'cognitive chemist' labors to analyze that compound into its elements. In the current paper, we provide new evidence for an approximately opposite metaphor: Combination Theory. In Combination Theory, cognition begins with the elements, which are subsequently synthesized into compounds. This theory has potential implications for education, and for our understanding of cultural differences. 
-
-# {-}
 
 Even the simplest of laboratory-based stimuli tend to vary across more than one stimulus attribute. Monochromatic squares are presented at different sizes and brightnesses [@smith1984overall]; pure sine waves at different pitches and intensities [@grau1988distinction]. For many decades, there has been consensus that one of the ways in which multi-attribute stimuli differ from each other is in the level of separability of their dimensions [@garner1976interaction]. For highly separable stimulus dimensions, such as size and brightness, adults find it easy to attend to one of the stimulus dimensions while ignoring the other. In contrast, for integral stimulus dimensions such as pitch and loudness, selective attention is difficult [@garner1976interaction]. Nonetheless, the stimulus dimensions of integral stimuli have psychological reality, as shown by the fact that it is even harder to selectively attend along an arbitrary dimension in stimulus space. For example, for colored squares of a fixed hue but varying in saturation and brightness, it is easier to classify on the basis of saturation, or brightness, than it is to classify on the basis of arbitrary dimensions that are a 45-degree rotation of the saturation-brightness axes [@foard1984holistic]. Thus, integral dimension pairs, such as saturation and brightness, are both difficult to selectively attend, and primary or 'privileged' stimulus dimensions.
 
@@ -48,8 +65,7 @@ The application of Differentiation Theory to separable stimuli turned out to be 
 
 Combination Theory is the inverse of Differentiation Theory. It argues that cognition begins with the stimulus attributes (e.g. saturation, brightness), and that these attributes are combined if time and mental resources allow. It provides a sufficient account of the effects of time pressure, cognitive load and incidental training on the classification of separable stimuli [@wills2015combination]. However, it makes a striking and untested prediction concerning integral stimuli. It predicts that sufficient increases in time pressure will increase the prevalence of single-dimension classification of integral stimuli. Thus, despite the difficulty people have in selectively attending to one dimension of an integral stimulus under unspeeded conditions, under sufficiently speeded conditions their classification will nonetheless be more likely to be on the basis of a single stimulus dimension, because they have not yet combined the dimensions. In other words, the properties of integral stimuli under unspeeded conditions come not from the difficulty of differentiating the holistic 'blob' into its constituent dimensions (as Differentiation Theory would predict) but from the rapidity with which the stimulus dimensions are combined. In order to explain performance under unspeeded conditions, Combination Theory must further assume that, once combined, selective attention of dimensions is effortful. This is an existing assumption of Combination Theory, already employed to explain other phenomena [@wills2015combination]. In summary, Combination Theory predicts that time pressure will increase the prevalence of single-dimension classification of integral stimuli, while Differentiation Theory predicts the opposite, or the absence of an effect. 
 
-
-## The current experiments {-}
+## The current experiments
 
 A key experimental procedure employed in support of Differentiation Theory is the restricted classification (or "triad") task [@garner1976interaction; @smith1984overall; @ward1983response]. Participants are presented with three stimuli, for example the stimuli labelled 6 to 8 in Figure \@ref(fig:redstim). Stimuli 7 and 8 are identical in brightness but quite dissimilar in saturation ('chroma'). Stimuli 6 and 8 are similar on both dimensions, but identical on neither. The task is to pick the two stimuli that 'go together' (or to pick the odd one out). No feedback is given. 
 
@@ -66,9 +82,10 @@ In addition to overall similarity and identity responding, another possible resp
 
 In the current experiments, we apply response-set analysis of the triad task to the effects of time pressure on classification of integral stimuli varying in brightness and saturation. Combination Theory predicts an increase in the prevalence of single-dimension classification with increasing time pressure. Differentiation Theory predicts the opposite. A strong preference for overall similarity classification in integral stimuli under low time pressure is already well established, and the application of time pressure makes classification data more 'noisy' [ @wills2015combination]. For both these reasons, we tested about twice as many participants in our high-time-pressure conditions than in our low-time-pressure conditions.
 
-# Experiment 1 {-#ply044}
 
-## Method {-}
+# Experiment 1 {#ply044}
+
+## Method
 
 ```{r pwr-044, echo=FALSE}
 ## Wills et al. (2015, Exp. 2), chi-square for increase in UD is 8.64. 80 participants tested, two excluded for response bias, leaving N=78)
@@ -76,22 +93,21 @@ pwr.wills2015e2  <- sqrt(8.64 / 78)
 pwr044  <- pwr.chisq.test(N = 48, df = 1, sig.level = .05, power=.8)
 ```
 
-### Participants {-}
+### Participants
 
-Forty-six psychology students from Plymouth University participated for partial course credit; the sample size was determined by the number of course credits available at the time of testing. Our experiment had sufficient (80%) power to detect medium-to-large effects (_w_ = `r round(pwr044$w,2)`). An effect size of approximately similar magnitude (_w_ = `r round(pwr.wills2015e2, 2)`) had previously been observed when applying more subtle time pressure to squares varying in size and brightness [@wills2015combination]. Hence, the sample size provided an initial test of our hypothesis within the resources available. Power calculations were performed using the R package `pwr` [@R-pwr]. 
+Forty-six psychology students from Plymouth University participated for partial course credit; the sample size was determined by the number of course credits available at the time of testing. Our experiment had sufficient (80%) power to detect medium-to-large effects (_w_ = `r round(pwr044$w,2)`). An effect size of approximately similar magnitude (_w_ = `r round(pwr.wills2015e2, 2)`) had previously been observed when applying more subtle time pressure to squares varying in size and brightness [@wills2015combination]. Hence, the sample size provided an initial test of our hypothesis within the resources available. Power calculations were performed using the R package `pwr` [@R-pwr]. The University of Plymouth Psychology Ethics Committee approved all reported experiments.
 
-### Stimuli and apparatus {-}
+### Stimuli and apparatus
 
 Eight colored squares, 8mm on a side, were used (see Figure \@ref(fig:redstim)). The stimuli were of a red hue (Munsell 5R), and varied in chroma (4-12) and brightness (2-6); this is similar to the color space employed in @nosofsky1987attention. Note that, in the Munsell system, two units of chroma are psychologically equivalent to one unit of brightness [@nickerson1936specification; @nosofsky1987attention; @shepard1958stimulus]. The positioning of the stimuli within stimulus space followed our previous experiments [@milton2008processes; @wills2015combination].  Eight stimulus triads are possible within this stimulus set (1-3-7, 1-5-7, 2-4-8, 2-6-8, 1-2-3, 1-2-4, 5-7-8, 6-7-8). There are six different ways in which three stimuli can be placed in three spatial locations and thus each of the eight triads had six different instantiations, resulting in 48 physically different triads per experiment. The three stimuli in each triad were presented simultaneously in a horizontal line, with each square separated from the next by an edge-to-edge distance of 8 mm. Stimuli were presented on a 22-inch Philips LED monitor, against a mid-gray background, using E-prime 2; responses were collected using a standard PC keyboard. Participants sat approximately 50cm from the screen; the whole stimulus triad thus subtended approximately five degrees of visual angle horizontally, and one degree vertically.
   
-
-### Procedure {-}
+### Procedure
 
 Participants were arbitrarily assigned to one of two conditions, high time pressure or low time pressure. The two conditions were identical except for stimulus presentation time. The stimulus presentation times used were 100 ms and 2000 ms. At the beginning of each trial, the screen displayed the message "Ready?" and the participant pressed a key to continue. After this, a small fixation cross was presented in the center of the screen, for 500 ms. The stimulus triad was then presented for the appropriate duration, and then immediately replaced by the message "Odd one out?" The participant pressed the number key 1, 2 or 3 to indicate the left, middle, or right stimulus, respectively. The next trial began immediately upon detection of a response. 
 
 Each of the 48 physically different stimulus triads were presented twice, with order of presentation randomized for each participant. The randomization was constrained such that each block of eight trials contained exactly one of the eight logical triads (1-3-7, 1-5-7, etc.). At the end of each block, the participants received an on-screen reminder of the instructions, and pressed a key when they were ready to continue. 
 
-## Results {-}
+## Results
 
 ```{r ply044-init, echo=FALSE, message=FALSE, results='hide'}
 eda.ply44  <- read_csv("data/ply44data.csv")
@@ -262,7 +278,7 @@ On `r round(N.ties.ply44*100/(N.ppts.ply44*N.blks.ply44),0)`% of blocks, models 
 One obvious criticism of this conclusion is that it is based on an analysis which, despite having precedents in the literature, was only engaged after our a priori analysis failed to reveal conclusive results. One might thus attribute the support provided to Combination Theory to a form of 'p hacking' [@simmons2011false]. For this reason, we conducted a direct replication.
 
 
-# Experiment 2 {-#ply062}
+# Experiment 2 {#ply062}
 
 ```{r ply062-preproc, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 eda.ply62  <- read_csv("data/ply62data.csv")
@@ -283,11 +299,11 @@ pwr.ply062  <- pwr.t2n.test(d=ud.cohen.ply44$estimate, alternative="greater",
 
 ```
 
-## Method {-}
+## Method
 
 Fifty psychology students from Plymouth University participated for partial course credit; this sample size has sufficient (`r round(pwr.ply062$power*100, 0)`%) power to detect the medium-to-large effect observed in the by-blocks analysis of the previous experiment (d = `r round(ud.cohen.ply44$estimate, 2)`). The stimuli, apparatus, and procedure, were identical to the previous experiment.
 
-## Results {-}
+## Results
 
 ```{r ply062-model-fit, echo=FALSE, message=FALSE, results='hide', cache=TRUE}
 ## Fit each response model to each participant, using all response blocks to do
@@ -388,13 +404,13 @@ mean_theory  <- as.numeric(blk.report.ply44[1, 'UD'] - blk.report.ply44[2, 'UD']
 dienes.bf.ply62  <- Bf(sd=sd_err, obtained=mean_diff, uniform=0, 
          meanoftheory=mean_theory, sdtheory=mean_theory/2, tail=1)
 
-### NOW SAVE WORKSPACE SO THAT SOM-R CAN PICK UP WHERE WE LEFT OFF
+### NOW SAVE WORKSPACE SO THAT SUPPLEMENTARY MATERIALS CAN PICK UP WHERE WE LEFT OFF
 save.image("tmp/workspace.RData")
 ```
 
 `r toTitleCase(n2w(nrow(exclude)))` participant was excluded due to being best fit by a response-bias model. On `r round(N.ties.ply62*100/(N.ppts.ply62*N.blks.ply62),0)`% of blocks, models tied for first place; these blocks were removed from further analysis. Table \@ref(tab:ply62-block-report) shows the key results, which are similar to the previous experiment. Crucially, increased time pressure once again increased the prevalence of unidimensional classification of these integral stimuli, $BF_{10}$ = `r round(dienes.bf.ply62$BayesFactor,0)`. This Bayesian calculation makes use of a prior based on the size of the effect in the previous experiment. Specifically, following @dienes2011bayesian, we used a normally-distributed prior of effect sizes, centered on the observed difference in the previous experiment, and with a standard deviation of half that observed difference. There is also Bayesian evidence for the effect of time pressure on unidimensional responding  if one entirely ignores the prior provided by the previous experiment and uses a non-directional test against a non-informative prior, as performed in the previous experiment, $BF_{10}$ = `r ud.bf.val.ply62`. 
 
-# Discussion {-}
+# Discussion
 
 As time pressure increases, the prevalence of single-dimension classification of multi-attribute stimuli increases [@wills2015combination]. This phenomenon is well established for separable stimuli (e.g. squares varying in size and brightness), but the current experiments are the first demonstration for integral stimuli (specifically, for squares varying in saturation and brightness). Intuitively, this effect of time pressure on integral stimuli may seem surprising. After all, under unspeeded conditions, it is well established that selectively attending to integral stimulus dimensions requires effort [@garner1976interaction]. Such observations have led some to conclude that cognition begins with an undifferentiated stimulus whole, which is analyzed into its components only with effort [@lockhead1972processing et seq.]; a view subsequently described as Differentiation Theory [@wills2015combination]. However, our results support  an approximately opposite account - cognition begins with stimulus attributes, which are combined if time and mental resources allow [@neisser1967cognitive et seq.]; an account subsequently described as Combination Theory [@wills2015combination]. Once attributes are combined, selective attention is somewhat effortful, and that effort is greater for integral than for separable stimuli. Under a Combination Theory account synthesis, rather than analysis, is the more appropriate chemical metaphor. Integral stimuli, rather than being slowly analyzed, are quickly synthesized. 
 
@@ -402,18 +418,22 @@ Although the current experiments concern the presentation of simple stimuli in t
 
 Returning to the experiments reported in the current paper, the same-lab replication of our results reduces the chances that we are reporting a false positive, but replication by an independent lab would further increase confidence, and we are keen to support such efforts. Our materials and analysis methods are publicly available. One crucial aspect for successful replication of our results is the well-controlled presentation of precisely-defined stimuli; the logic of the experiment requires, for example, that the location of stimuli in physical stimulus space (Figure \@ref(fig:redstim)) corresponds reasonably closely to their position in psychological stimulus space (as determined by, for example, multidimensional scaling of similarity ratings). Investigations of our own stimuli (reported in the Online Supplementary Materials) support the conclusion that, in our case, the correspondence was sufficiently close that our conclusions remain valid (in fact, use of a psychological stimulus space strengthens the support for our conclusions). Nonetheless, future investigators may wish to take further steps towards tight stimulus control (for example, the use of more specialist hardware for stimulus presentation). Future research might also consider extending to other integral stimulus sets, with pure tones differing in pitch and loudness probably the other most-validated integral set to date [@grau1988distinction]. Finally, it would be interesting to see which formal process models of classification can accommodate the current results. EGCM [@lamberts1995categorization] seems a likely candidate, as does any other model that explicitly combines stimulus dimensions over time [@cohen2003extension]. In contrast, theories such as COVIS [@ashby1998neuropsychological], in which responding on the basis of a single dimension is a function of the effortful use of the rule-based system, seem conceptually closer to Differentiation Theory, and hence may require some modification in order to accommodate the present results. 
 
-# Acknowledgments {-} 
+# Open Practices Statement
 
-The authors thank (_withheld for masked manusciprt_) and (_withheld for masked manuscript_) for their assistance in data collection.
+None of the experiments in this article were formally preregistered. Stimulus files, raw data, and a reproducible manuscript including all analysis code, is available at [`https://github.com/ajwills72/pu084github`](https://github.com/ajwills72/pu084github)
 
-# Open Practices Statement {-}
+<!--\newpage!-->
 
-None of the experiments in this article were formally preregistered. Stimulus files, raw data, and a reproducible manuscript including all analysis code, is available at (_URL withheld as disclosure would unmask manuscript_)
-
-# References {-}
+# References
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(.packages(), 'packages.bib')
 ```
 
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id="refs" custom-style="Bibliography"></div>
+\endgroup
