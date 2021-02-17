@@ -6,3 +6,7 @@ rm -r wills2021rapid-som-r_files
 rm wills2021rapid.pdf
 rm wills2021rapid-som-r.pdf
 rm -r auto
+rm *.fff
+rm *.ttt
+rm *.tex
+rm *~
