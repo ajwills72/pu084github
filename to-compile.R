@@ -2,5 +2,5 @@
 ## checkpoint("2021-02-02")
 library(rmarkdown)
 library(bookdown)
-render("wills2021rapid.Rmd","all")
-render("wills2021rapid-som-r.Rmd","all")
+render("wills2021rapid.Rmd")
+render("wills2021rapid-som.Rmd","all")
