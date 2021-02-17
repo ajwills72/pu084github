@@ -1,7 +1,10 @@
 --- 
 title: "The rapid synthesis of integral stimuli"
-author: " "
-date: " "
+author:
+  - Andy J. Wills, University of Plymouth, UK
+  - C.E.R. Edmunds, Queen Mary University of London, UK
+  - Fraser Milton, University of Exeter, UK
+date: "`r Sys.Date()`"
 output:
   bookdown::pdf_document2:
     keep_tex: false
@@ -22,13 +25,6 @@ source("packages.R")
 source("fitfuncs.R")
 ## Load custom Bayes Factor functions
 source("BFfunc.R")
-
-## Reinstate above to unmask authors
-##author:
-##  - Andy J. Wills, University of Plymouth, UK
-##  - C.E.R. Edmunds, Queen Mary University of London, UK
-##  - Fraser Milton, University of Exeter, UK
-## date: "`r Sys.Date()`"
 
 ```
 

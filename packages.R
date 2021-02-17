@@ -9,3 +9,4 @@ library(BayesFactor) ## Bayesian contingency tests
 library(effsize)     ## Calculation of Cohen's d
 library(xfun)        ## Convert numbers to words
 library(tools)       ## Convert to words to title case
+library(papaja)      ## APA-format manuscripts

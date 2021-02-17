@@ -1,6 +1,7 @@
 # Temp
 *~
 temp/*
+tmp/*
 
 # History files
 .Rhistory
@@ -38,6 +39,7 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
+packages.bib
 
 # R Environment Variables
 .Renviron
@@ -47,3 +49,4 @@ vignettes/*.pdf
 data/ply44data.xls
 data/ply62data.xls
 data/ply84data/*
+
