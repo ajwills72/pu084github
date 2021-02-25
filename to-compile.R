@@ -24,4 +24,4 @@ library(bookdown)
 ### END OF CHECKPOINT-RELATED CODE ###
 
 render("wills2021rapid.Rmd")
-render("wills2021rapid-som.Rmd","all")
+

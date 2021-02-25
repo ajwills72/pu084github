@@ -52,8 +52,6 @@ one place, particularly for checkpointing)
 
 **stimfig.svg** - Original source file for stimfig.png
 
-**tmp** - Initially empty directory to which R workspace is stored.
-
 **to-compile.R** - R script to compile manuscript
 
 **wills2021rapid.Rmd** - Rmarkdown file containing the text and analysis script for the main manuscript
