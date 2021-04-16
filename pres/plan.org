@@ -1,22 +1,24 @@
 NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 words.
 
-* Introduction (8 minutes)
+* Introduction (8 minutes) 1:45
+
+- Lenard
 
 - [SLIDE] The synthesis of integral dimensions
 
-- Even the simplest of lab-based stimuli have multiple varying attributes. 
+- [SLIDE] Even the simplest of lab-based stimuli have multiple varying attributes. 
 
-- [SLIDE] Monochromatic squares are presented at different sizes and brightnesses.
+- Monochromatic squares are presented at different sizes and brightnesses.
 
-- [SLIDE] Pure sine waves are presented at different pitches and intensities
+- Pure sine waves are presented at different pitches and intensities
 
 - How do we process these multiple attributes in order to classify the objects in our world?
 
 - [SLIDE] There are two, approximately opposite, classes of theory: Differentiation Theory and Combination Theory
 
-- [SLIDE] Differentiation Theory says that stimuli are initially perceived as undifferentiated wholes or 'blobs'.
+- [SLIDE] Differentiation Theory says that stimuli are initially perceived as undifferentiated wholes or 'blobs'. In this slide, I represent a grey square being perceived as an unanalyzed blob, by placing it inside this purple blob
 
-- But, with time and effort people can analyze the stimulus into its constituent dimensions
+- So, under Differentiation Theory, stimuli are initially perceived as undifferentiated blobs. But, with time and effort people can analyze the stimulus into its constituent dimensions
 
 - [SLIDE] It's worth noting that much of psychology appears to assume some form of Differentiation Theory.
 
@@ -26,7 +28,7 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - Such a description presupposes a form of Differentiation Theory.
 
-- [SLIDE] Starting with Fraser's Ph.D. work in the early 2000s, and with work most recently reported last year, our lab has, I think, built a strong case that Differentiation Theory is wrong -- at least for the stimuli and procedures we have studied. 
+- [SLIDE] Starting with Fraser's Ph.D. work, and through to work most recently reported last year, our lab has, I think, built a strong case that Differentiation Theory is wrong -- at least for the stimuli and procedures we have studied. 
 
 - Instead, all the work we have done in this period points in the opposite direction, to a class of theory we describe as Combination Theory.
 
@@ -56,7 +58,7 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - Other stimulus sets, however, are integral. For these it is hard to classify on the basis of one attribute while ignoring the other.
 
-- For example, it is difficult to classify stimuli on the basis of their brightness, ignoring their saturation. 
+- For example, it is difficult to classify square of red hue on the basis of their brightness, ignoring their saturation. 
 
 - This stimulus set is therefore integral.
 
@@ -64,7 +66,7 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - There seems to be a case for Differentiation Theory for these stimuli. 
 
-- The fact that we struggle to attend to one stimulus attribute while ignoring the other might be taken to imply the presence of a 'holisitic blob' representation of these stimuli, that is split into its components only with some effort. 
+- The fact that we struggle to attend to one stimulus attribute while ignoring the other might be taken to imply the presence of a 'holisitic blob' representation of these stimuli, which is split into its components only with some effort. 
 
 - Indeed, analysis of the historical record indicates the the existence of integral stimuli was a major motivator in the development of Differentiation Theory. 
 
@@ -74,7 +76,7 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - Combination Theory still has to predict that the stimulus attributes - for example brightness and saturation - are combined over time. 
 
-- Under Combination Theory, the difficulty of selective attention for separable stimuli comes from the fact that integral stimuli are _quickly synthesized_. 
+- Under Combination Theory, the difficulty of selective attention for integral stimuli comes from the fact that integral stimuli are _quickly synthesized_. 
 
 - In other words, the brightness and saturation attributes are rapidly combined.
 
@@ -82,7 +84,7 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - ...this assumption is already part of Combination Theory and has been used to explain previous results.
 
-- How do we distinguish the predictions of Combination and Differentiation Theory for seperable stimuli?
+- How do we distinguish the predictions of Combination and Differentiation Theory for integral stimuli?
 
 - [SLIDE] Actually, it's pretty straight forward, because they make opposite predictions about the effects of time pressure on classification.
 
@@ -96,9 +98,9 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - So, that's what we set out to test. What is the effect of time pressure on the classification of integral stimuli?
 
-* Method (5 minutes)
+* Method (5 minutes) 1:53
 
-- [SLIDE] So, by now, our independent variable should be obvious - time pressure. Stimuli were either presented for 100 ms and 2000 ms. Time to respond was not limited, but limiting stimulus presentation time is know to exert significant time pressure on participants. 
+- [SLIDE] So, by now, our independent variable should be obvious - time pressure. Stimuli were either presented for 100 ms and 2000 ms. Time to respond was not limited, but limiting stimulus presentation time is known to exert significant time pressure on participants. 
 
 - The choice of stimuli is fairly straight forward, too. We need integral stimuli, and red hue squares varying in saturation and brightness are the set of stimuli most extensively confirmed as being integral in nature.
 
@@ -114,9 +116,9 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - [SLIDE] On every trial, the three stimuli presented have the following relationship to each other
 
-- [SLIDE] Two stimuli are identical on one dimension but very different on the other. 
+- [SLIDE] These two stimuli are identical on one dimension but very different on the other. 
 
-- [SLIDE] Two stimuli are similar on both dimensions, but identical on neither.
+- [SLIDE] These two stimuli are similar on both dimensions, but identical on neither.
 
 - On each trial, the dimension containing the identity is randomly selected by the experimenter.
 
@@ -124,7 +126,7 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - [SLIDE] In this experiment, we used a total of eight stimuli, from which eight stimulus triads can be formed.
 
-- There are six different ways in which three stimuli can be placed in three spatial locations, so that gives us 48 distinct stimulus triads.
+- There are also six different ways in which three stimuli can be placed in three spatial locations, so that gives us 48 distinct stimulus triads.
 
 - Participants were shown each twice, in a random order. 
 
@@ -140,23 +142,26 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - It's not possible to work out what they're doing on the basis of a single trial, because for any given trial, more than one strategy leads to the same behaviour. 
 
-- For example, classifying on the basis of overall similarity of triad 1-3-7 leads to the same response as classifying on the basis of brightness alone.
+- For example, in triad 1-3-7, classifying on the basis of overall similarity leads to the same response as classifying on the basis of brightness alone.
 
 - However, across the 96 trials of the experiment, we calculate how many trials are predicted by each of the three strategies - single-dimension, overall similarity, and identity.
 
 - The strategy that accounts for the most responses is considered to be the strategy employed by that participant.
 
-- We also include a strategy of pressing the same key on every trial, to catch people who are not engaged with the task.
-* Results #1 (2 min)
-- [SLIDE] So, what did we find?
+- We have used this analysis technique successfully in the past on the triad task, for example in Wills et al. (2015).
 
-- Oh no, bugger!
+* Results #1 (2 min) 1:58
+- [SLIDE] So, what did we find? 
 
-- As expected, people in the low time pressure condition overhelming classified on the basis of overall similarity.
+- This table shows the number of participants using a single-dimension ("UD"), overall similarity, or Identity strategy, in each condition. "Bias" indicates one person pressed the same key all the time. 
 
-- However, this was also the case for the high time pressure condition.
+- So, what does these results tell us. Basically ... bugger!
 
-- This null result can be accommodated by either account - Combination Theory or Differentiation Theory.
+- As expected, everyone in the low time pressure condition classified on the basis of overall similarity.
+
+- However, this was also close to being the case for the high time pressure condition.
+
+- This null result can be accommodated by either account - Combination Theory or Differentiation Theory. For example, under Combination Theory, perhaps the time pressure was not sufficiently great to show an effect.
 
 - So, we did a further, exploratory analysis
 
@@ -172,9 +177,9 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - It disconfirms Differentiation Theory.
 
-* Result #2 (1 min)
+* Result #2 (1 min) 2:00
 
-- Now an uncharitable soul might jump in at this point to point out that what we've done here might be a form of 'p hacking'. 
+- Now ... an uncharitable soul might jump in at this point to point out that what we've done here might be a form of 'p hacking'. 
 
 - We did our planned analysis. It didn't support our theory. So we tried another analysis. That one worked, and that's the one we believe. Are we fooling ourslves?
 
@@ -188,7 +193,7 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - Time pressure increased single-dimension responding. Combination Theory is right. Differentiation Theory is wrong. 
 
-* Result #3 (2 min)
+* Result #3 (2 min) 2:01
 
 - So far, we've assumed that people perceive our stimuli in the manner described by their physical stimulus attributes - brightness, saturation.
 
@@ -198,36 +203,46 @@ NOTE: Presentation rate is about 100 words / minute. For 20 minutes then, 2000 w
 
 - From this information, we can use multidimensional scaling to infer the psychological stimulus space for these stimuli. 
 
-- [SLIDE] And here's what we found. 
+- [SLIDE] And here's what we found. On the left is the physical stimulus space. On the right is the psychological stimulus space as determined by multidimensional scaling. 
 
 - For most stimuli, the correspondence between the physical and psychological space was pretty good.
 
-- For a couple of stimuli, they seem to have been perceived as somewhat brighter and more saturated than their physical description would indicate.
+- For stimuli 2 and 4, they seem to have been perceived as somewhat brighter and more saturated than their physical description would indicate.
 
 - This might have been as a result of us using commodity hardware for stimulus display.
 
-- Does these moderate deviations of psychological space from physical space cast doubt on our conclusions?
+- Do these moderate deviations of psychological space from physical space cast doubt on our conclusions?
 
 - No. 
 
 - In a final analysis, we use the psychological stimulus co-ordinates to re-analyze the data of the two previous experiments, combined into a single data set.
 
-- [SLIDE] As you can see, using the psychological representation of these stimuli increased the magnitude of the effect.
-* Discussion (2 min) 
+- [SLIDE] As you can see, using the psychological representation of these stimuli increased the magnitude of the effect. In fact, it more of less doubled in size. 
+
+- Bayesian analysis provides strong evidence for our conclusion. However you rated the relative likelihood of the experimental and null hypotheses before these data, Bayesian analysis indicates you should increase that ratio in favour of the experimental hypothesis by a factor of approximately nine hundread.
+
+* Discussion (2 min) 2:03
 ...And that's about it. 
 
 - [SLIDE] Combination Theory wins, Differentiation Theory loses.
 
-- Combination Theory already provided a superior explanation of the effects of time pressure, concurrent load, and incidental training of separable stimuli, across a range of procedures.
+- Combination Theory already provided a superior explanation of the effects of time pressure, concurrent load, and incidental training for separable stimuli, across a range of procedures.
 
-- We've now shown, I think somewhat surprisingly, that Combination Theory also works better than Differentiation Theory for integral stimuli.
+- We've now shown, that Combination Theory also works better than Differentiation Theory for integral stimuli. To be honest, this was not really the result we were expecting -- we thought Combination Theory would break for these sorts of stimuli.
 
-- Stimuli, then, are not a blob that is 'analyzed' into its components if we have time.
+- So… stimuli, then, are not a blob that is 'analyzed' into its components if we have time.
 
 - Rather, the components come first, and we combine those components if we have time.
 
-- It would seem then, that "analysis" is a poor chemical metaphor for the mental processes underlying classification. Our cognitive chemist does not analyse mysterious compounds. She synthesises stimulus compounds from their components.
+- It would seem then, that "analysis" is a poor chemical metaphor for the mental processes underlying classification. 
+
+- [SLIDE] Our cognitive chemist do not analyse mysterious compounds. They synthesize stimulus compounds from their components.
 
 - There may be wider implications here for the ways we think about modes of thought. Perhaps, rather than thinking in terms of analytic and non-analytic (or holistic) modes of thought, we should think about the extend to which thought is synthetic or non-synthetic.
 
 - Thank you! I'm happy to take questions :-)
+
+* End 2:05
+* Links
+https://www.news24.com/w24/Work/Jobs/meet-south-africas-most-successful-black-women-in-science-20180821
+

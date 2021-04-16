@@ -4,6 +4,10 @@ This repository contains all the code required to reproduce the manuscript:
 
 Wills, A.J., Edmunds, C.E.R, & Milton, F. (2021). The rapid synthesis of integral stimuli. _preprint_.
 
+If you'd rather just get the paper without having to compile it, you can find it on [psyarxiv](https://psyarxiv.com/grfaj).
+
+A version of this paper was presented as a talk at the Experimental Psychology Society, on 15th April 2021. Here are the slides as [PDF](pres/slides.pdf) and as [ODP](pres/slides.odp), plus the [notes](pres/plan.md) from my talk.
+
 ## Compiling the manuscript
 
 Run `to-compile.R` to compile the manuscript. It produces both the main manuscript (`wills2021rapid.pdf`) and the online supplementary materials (`wills2021rapid-som.pdf`). Compilation may take a couple of minutes. 
