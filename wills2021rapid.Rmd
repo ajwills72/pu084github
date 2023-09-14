@@ -3,23 +3,23 @@ title             : "The rapid synthesis of integral stimuli"
 shorttitle        : "RAPID SYNTHESIS OF INTEGRAL STIMULI"
 
 author: 
-  - name          : "Andy J. Wills"
+  - name          : "C. E. R. Edmunds"
     affiliation   : "1"
     corresponding : yes
-    address       : "School of Psychology, University of Plymouth, Drake Circus, Plymouth. PL4 8AA. United Kingdom"
-    email         : "andy@willslab.co.uk"	  
-  - name          : "C. E. R. Edmunds"
-    affiliation   : "2"
+    address       : "School of Psychology, Bath Spa University, Newton St Loe, Bath. BA2 9BN United Kingdom"
+    email         : "ceredmunds@gmail.com"	  
   - name          : "Fraser Milton"
+    affiliation   : "2"
+  - name          : "Andy J Wills"
     affiliation   : "3"
 
 affiliation:
   - id            : "1"
-    institution   : "University of Plymouth"
+    institution   : "Bath Spa University"
   - id            : "2"
-    institution   : "Queen Mary University of London"
-  - id            : "3"
     institution   : "University of Exeter"
+  - id            : "3"
+    institution   : "University of Plymouth"
 
 authornote: |
 
@@ -97,7 +97,7 @@ pwr044  <- pwr.chisq.test(N = 48, df = 1, sig.level = .05, power=.8)
 
 ### Participants
 
-Forty-six psychology students from Plymouth University participated for partial course credit; the sample size was determined by the number of course credits available at the time of testing. Our experiment had sufficient (80%) power to detect medium-to-large effects (_w_ = `r round(pwr044$w,2)`). An effect size of approximately similar magnitude (_w_ = `r round(pwr.wills2015e2, 2)`) had previously been observed when applying more subtle time pressure to squares varying in size and brightness [@wills2015combination]. Hence, the sample size provided an initial test of our hypothesis within the resources available. Power calculations were performed using the R package `pwr` [@R-pwr]. The University of Plymouth Psychology Ethics Committee approved all reported experiments.
+Forty-six psychology students from XXX University participated for partial course credit; the sample size was determined by the number of course credits available at the time of testing. Our experiment had sufficient (80%) power to detect medium-to-large effects (_w_ = `r round(pwr044$w,2)`). An effect size of approximately similar magnitude (_w_ = `r round(pwr.wills2015e2, 2)`) had previously been observed when applying more subtle time pressure to squares varying in size and brightness [@wills2015combination]. Hence, the sample size provided an initial test of our hypothesis within the resources available. Power calculations were performed using the R package `pwr` [@R-pwr]. The University of XXX Psychology Ethics Committee approved all reported experiments.
 
 ### Stimuli and apparatus
 
@@ -314,7 +314,7 @@ pwr.ply062  <- pwr.t2n.test(d=ud.cohen.ply44$estimate, alternative="greater",
 
 ## Method
 
-Fifty psychology students from Plymouth University participated for partial course credit; this sample size has sufficient (`r round(pwr.ply062$power*100, 0)`%) power to detect the medium-to-large effect observed in the by-blocks analysis of the previous experiment (d = `r round(ud.cohen.ply44$estimate, 2)`). The stimuli, apparatus, and procedure, were identical to the previous experiment.
+Fifty psychology students from XXX University participated for partial course credit; this sample size has sufficient (`r round(pwr.ply062$power*100, 0)`%) power to detect the medium-to-large effect observed in the by-blocks analysis of the previous experiment (d = `r round(ud.cohen.ply44$estimate, 2)`). The stimuli, apparatus, and procedure, were identical to the previous experiment.
 
 \vspace{2em}
 
