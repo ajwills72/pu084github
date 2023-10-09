@@ -49,7 +49,7 @@ ppfits <- function(ppno,blkno) {
   out[1] = as.numeric(dta[1,'subj'])
   out[2] = as.numeric(dta[1,'cond'])
   out[3] = as.numeric(blkno)
-  x <- cbind(dta$triad,dta$resp)
+  x <- cbind(dta$triad, dta$resp)
   colnames(x) <- c('stim','resp')
   out[4] = sum(apply(x,1,bright.mdl)) 
   out[5] = sum(apply(x,1,chroma.mdl))
