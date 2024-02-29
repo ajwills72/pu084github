@@ -25,6 +25,8 @@ authornote: |
 
   The authors thank Anna Robertson and Gemma Williams for their assistance in data collection.
   
+  The experiments in this manuscript were approved by Faculty of Health and Human Sciences Research Ethics Committee, University of Plymouth. Reference Number: 14/15-444
+  
   Stimulus files, raw data, and a reproducible manuscript including all analysis code, is available at [`https://github.com/ajwills72/pu084github`](https://github.com/ajwills72/pu084github)
 
 abstract: |
@@ -111,7 +113,7 @@ Each of the 48 physically different stimulus triads were presented twice, with o
 ### Strategy analysis
 To determine the strategy used by each participant, the participants' responses were compared to each of the three categorisation strategies mentioned above: unidimensional (UD), overall similarity (OS), and identity (ID). Additionally, we checked to see whether any participants were best described by a Response Bias strategy (Bias). To determine the strategy used by each participant, we first determined for each of the 48 possible triad stimuli what the response should be given each of these strategies. For the UD strategy, the response would be the pair that was be closest on a particular dimension. 
 For the OS strategy, the response would be the pair that was the most similar overall. 
-For the ID strategy, the response would be the pait that shared an identical feature. 
+For the ID strategy, the response would be the pair that shared an identical feature. 
 For the Bias strategy, the response would be where the participant pressed the same key throughout the experiment.
 We then counted, for each strategy and participant, how many of the participant's responses matched the predicted response of that strategy. Then, the participant's strategy was the strategy that best matched the participant's responses
 
@@ -202,9 +204,14 @@ mf.sum.ply44  <- mf.sum.ply44 %>% pivot_wider(names_from = Model, values_from = 
 
 mf.sum.ply44  <- mf.sum.ply44 %>% select(Time, UD, OS, ID, Bias)
 
+# Hacky way of getting proportions in table as requested by reviewer
+mf.sum.ply44$UD <- c("1 (0.0345)", "0 (0)")
+mf.sum.ply44$OS <- c("27 (0.931)", "17 (1.00)")
+mf.sum.ply44$Bias <- c("1 (0.0345)", "0 (0)")
+
 knitr::kable(
            mf.sum.ply44, row.names=FALSE, digits=2,
-           caption = 'Number of participants best fit by a unidimensional (UD), overall similarity (OS), identity (ID), or response bias (Bias) model, as a function of stimulus presentation time, in Experiment 1.',
+           caption = 'Number of participants (and proportion of participants) best fit by a unidimensional (UD), overall similarity (OS), identity (ID), or response bias (Bias) model, as a function of stimulus presentation time, in Experiment 1.',
            booktabs = TRUE
        )
 
@@ -444,7 +451,11 @@ PsychoPy software [@pierce2007psychopy], version 1.83, was used to present the s
 
 ### Procedure {-}
 
-After some initial instructions explaining the task, the experiment began. On each trial, two square stimuli were shown in the centre of the screen, arranged horizontally, and placed 2cm apart as measured from their centres. Participants were asked to rate the similarity of each pair of stimuli using a 1-9 scale. The scale was visually presented on the screen, below the square stimuli, along with text specifying that "1 = not very similar" and "9 = very similar". The number 5 was also indicated on the scale, but not further labelled. A moveable rectangular slider was present on this scale. Initially placed above the number 5, participants moved this slider to one of the nine available ratings using the mouse and indicated their response with a mouse click. The screen cleared immediately after the participant's response, and the next trial began one second later.
+```{r screenshot, fig.cap="A screenshot of a single example trial from Experiment 3.", out.width = '50%', fig.align='center', echo=FALSE}
+knitr::include_graphics('screenshotExp3.png')
+```
+
+After some initial instructions explaining the task, the experiment began. On each trial, two square stimuli were shown in the centre of the screen, arranged horizontally, and placed 2cm apart as measured from their centres (see Figure \@ref(fig:screenshot)). Participants were asked to rate the similarity of each pair of stimuli using a 1-9 scale. The scale was visually presented on the screen, below the square stimuli, along with text specifying that "1 = not very similar" and "9 = very similar". The number 5 was also indicated on the scale, but not further labelled. A moveable rectangular slider was present on this scale. Initially placed above the number 5, participants moved this slider to one of the nine available ratings using the mouse and indicated their response with a mouse click. The screen cleared immediately after the participant's response, and the next trial began one second later.
 
 The experiment had two blocks of 56 trials. A block comprised two presentations of each possible pair of the eight stimuli, with left-right position of the stimulus pair counterbalanced across those two presentations. Trial ordering was randomized separately for each block and participant. 
 
@@ -670,13 +681,13 @@ While we believe that our results add to the growing body of evidence that suppo
 
 Indeed, this distinction may at least partially explain the virtual absence of ID sorting that we observed with integral stimuli in the long presentation time condition in contrast to the relatively high levels of ID sorting with separable stimuli  previously found under a similar time constraint [e.g., @wills2015combination]. For separable stimuli, the ability to selectively attend and switch between dimensions is assumed to become easier as presentation time increases which makes ID responding an easier and more commonly used approach.  However, for integral stimuli, once synthesis has occurred it is much harder to selectively attend to the individual dimensions than for separable stimuli and harder still to switch between the two dimensions which is necessary to consistently make ID responses. This added difficulty of selectively attending to integral than separable dimensions after they have been combined may therefore explain the virtual absence of ID sorting in the current experiments in contrast to the relatively high prevalence of this approach with separable stimuli.
 
-It is also worth noting that whilst our pattern of results appear to be robust, the precise mechanisms that underlie the effect remain uncertain and combination theory does make any direct predictions in this regard. This is because categorization involves a number of processes (e.g., perceptual, attentional, decisional/strategic and action) that are unlikely to be independent of each other making partitioning the precise contribution of these various components at the very least extremely difficult. 
+It is also worth noting that whilst our pattern of results appear to be robust, the precise mechanisms that underlie the effect remain uncertain and Combination Theory does make any direct predictions in this regard. This is because categorization involves a number of processes (e.g., perceptual, attentional, decisional/strategic and action) that are unlikely to be independent of each other making partitioning the precise contribution of these various components at the very least extremely difficult. 
 
 Although the current experiments concern the presentation of simple stimuli in the laboratory, the distinction between Differentiation and Combination Theory is of broader relevance. The terms 'analytic' and 'nonanalytic' (or 'holistic') are broadly applied in psychology as theories of modes of thought. Such terms seem to assume the correctness of Differentiation Theory (otherwise terms such as 'synthetic' would be more appropriate). Given that Differentiation Theory seems to be largely the wrong theory for the classification of simple stimuli, an investigation of the extent to which the predictions of Differentiation Theory are correct across psychology more generally seems worthy of further examination. For example, a form of Differentiation Theory seems to underlie the proposal that the training of radiologists could be improved by distracting them with a secondary task [@filoteo2010removing], while Combination Theory predicts that this is likely to be harmful [@newell2013reinstating]. A second example - one of the key ways WEIRD (Western Educated Industrialized Rich and Democratic) populations are described as differing from some other cultures is in the unusual extent to which WEIRD thought is characteristically 'analytic' rather than 'holisitic' [@henrich2010weirdest]. Such a description presupposes a form of Differentiation Theory. 
 
 Returning to the experiments reported in the current paper, the same-lab replication of our results reduces the chances that we are reporting a false positive, but replication by an independent lab would further increase confidence, and we are keen to support such efforts. Our materials and analysis methods are publicly available. One crucial aspect for successful replication of our results is the well-controlled presentation of precisely-defined stimuli; the logic of the experiment requires, for example, that the location of stimuli in physical stimulus space (Figure \@ref(fig:redstim)) corresponds reasonably closely to their position in psychological stimulus space. Investigations of our own stimuli (reported in Experiment 3) support the conclusion that, in our case, the correspondence was sufficiently close that our conclusions remain valid (in fact, use of a psychological stimulus space strengthens the support for our conclusions). Nonetheless, future investigators may wish to take further steps towards tight stimulus control (for example, the use of more specialist hardware for stimulus presentation). 
 
-In the current work, we used color stimuli varying in saturation and brightness as they have perhaps been the most commonly used integral stimuli in past  categorization research [e.g., @foard1984holistic; @little2013logical; @nosofsky1987attention]. However, one could potentially argue that a very short stimulus time  may have altered the perception of the colors themselves which could potentially have influenced our results. It is not clear how such a possibility could directly be tested in our paradigm. However, it would be helpful in future work to extend our results to other integral stimulus sets, with pure tones differing in pitch and loudness probably the other most-validated integral set to date [@grau1988distinction]. 
+In the current work, we used color stimuli varying in saturation and brightness as they have perhaps been the most commonly used integral stimuli in past  categorization research [e.g., @foard1984holistic; @little2013logical; @nosofsky1987attention]. However, one could potentially argue that a very short stimulus time  may have altered the perception of the colors themselves which could potentially have influenced our results. It is not clear how such a possibility could directly be tested in our paradigm. However, it would be helpful in future work to extend our results to other integral stimulus sets, perhaps with pure tones differing in pitch and loudness [@grau1988distinction] or sets with more than two dimensions [e.g., @vigo2022raising].
 
 Finally, it would be interesting to see which formal process models of classification can accommodate the current results. EGCM [@lamberts1995categorization] seems a likely candidate, as does any other model that explicitly combines stimulus dimensions over time [@cohen2003extension]. A further promising approach is Vigo et al.'s [-@vigo2022raising] recent dual discrimination invariance model (DDIM) which has been shown to provide an excellent account of the classification of three-dimensional integral stimuli although it may need to be extended to include a time component to provide a full explanation of our current data. In contrast, theories such as COVIS [@ashby1998neuropsychological], in which responding on the basis of a single dimension is a function of the effortful use of the rule-based system, seem conceptually closer to Differentiation Theory, and hence may require some modification in order to accommodate the present results. 
 
