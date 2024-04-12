@@ -87,8 +87,8 @@ In the current experiments, we apply response-set analysis of the triad task to 
 The decision to use stimulus presentation time in the current experiments was motivated by our previous use of this procedure in a comparable experiment with separable stimuli [@wills2015combination, Exp. 2, triad procedure with squares varying in size and brightness]. 
 Combination Theory predicts an increase in the prevalence of single-dimension classification with a decrease in stimulus presentation time. Differentiation Theory predicts the opposite. 
 
-A strong preference for overall similarity classification in integral stimuli under a decrease in stimulus presentation time is already well established, and the reduction of stimulus presentation time makes classification data more 'noisy' [ @wills2015combination].^[Here, 'noisy' means being either more erratic in the application of a strategy, or more inconsistent in the selection of a strategy in the first place.] Wills et al. measured this using the proxy of the number of responses that fit the winning strategy. For both these reasons, we tested about twice as many participants in our short-stimulus-presentation-time conditions than in our long-stimulus-presentation-time conditions.
-
+The reduction of stimulus presentation time makes classification data more 'noisy' [@wills2015combination].^[Here, 'noisy' means being either more erratic in the application of a strategy, or more inconsistent in the selection of a strategy in the first place. Wills et al. measured this using the proxy of the number of responses that fit the winning strategy.]
+In anticipation of this increased noise under short presentation times, we tested about twice as many participants in our short-stimulus-presentation-time condition  as in our long-stimulus-presentation-time condition.
 
 # Experiment 1 {#ply044}
 
